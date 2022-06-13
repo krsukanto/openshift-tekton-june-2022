@@ -1,20 +1,4 @@
-# Day 1 - OpenShift(jegan@tektutor.org)$ oc describe route nginx
-Name:			nginx
-Namespace:		jegan
-Created:		23 minutes ago
-Labels:			app=nginx
-Annotations:		openshift.io/host.generated=true
-Requested Host:		nginx-jegan.apps.ocp.tektutor.org
-			   exposed on router default (host router-default.apps.ocp.tektutor.org) 23 minutes ago
-Path:			<none>
-TLS Termination:	<none>
-Insecure Policy:	<none>
-Endpoint Port:		8080
-
-Service:	nginx
-Weight:		100 (100%)
-Endpoints:	10.128.1.236:8080, 10.128.1.237:8080, 10.128.1.238:8080 + 17 more...
-
+# Day 1 - OpenShift
 
 ## Container Engine vs Container Runtime
 (jegan@tektutor.org)$ oc project
@@ -686,7 +670,7 @@ nginx   nginx-jegan.apps.ocp.tektutor.org          nginx      8080              
 
 #### Describing the route
 ```
-oc descibe route nginx 
+oc describe route nginx 
 ```
 
 Expected output
