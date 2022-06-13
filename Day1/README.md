@@ -598,3 +598,15 @@ deployment.apps/nginx scaled
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-679c8f9884-76vnt   1/1     Running   0          2m43s
 </pre>
+
+## ⛹️‍♂️ Lab - Finding the IP address of the Pod
+```
+oc get po -o wide
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get po -o wide</b>
+NAME                     READY   STATUS    RESTARTS   AGE     IP            NODE                        NOMINATED NODE   READINESS GATES
+nginx-679c8f9884-76vnt   1/1     Running   0          5m22s   <b>10.130.0.80</b>   master-2.ocp.tektutor.org   <none>           <none>
+</pre>
