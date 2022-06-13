@@ -105,7 +105,7 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 - it is an Operating System optimized for Containerized applications
 - an Operating system that is optimized to be used in an Orchestration Platfrom like RedHat OpenShift
 - it comes with CRI-O container runtime pre-installed
-- it is easy to upgrade the OS with OpenShift commands
+- it is easy to upgrade the OS with OpenShift commanSchedulerds
 - it follows many container best practices, it enforces best practice by imposing certain restrictions on our containerized applications
 - Restrictions imposed by CoreOS
   - certain ports like 80 is reserved
@@ -132,6 +132,13 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 - if a master node has only master role, no user application can be deployed on to the master node
 - this can only be RHCOS ( RedHat Enterprise Core OS 
 
+## Pod
+- a group of related containers
+- IP address is assigned only the Pod level unlike Docker where every containers gets an IP address
+- a secret/infra container that supplies the network stack to the application container
+- the secret/infra container is called pause container, it uses k8s.gcr.io/pause container image
+- all the containers in the same Pod shares the network stack, IP Address, hostname, Volumes, etc.,                           
+
 #### API Server
 - this component implements the Orchestration features as REST API
 - API Server is the only component that is allowed to read/write to etcd datastore
@@ -148,7 +155,28 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 - whenever new Deployment are created, it is the responsibility of the Scheduler to allocate a node to the Pod
 - Scheduler also geta an update whenever scale up/down happens
 - Scheduler also gets an update when rolling update happens
-- Scheduler receives updates from A
+- Scheduler receives updates from API Server in the form of events
+
+#### Controller Managers
+- is a collection of many Controllers
+- Just to given an idea, these are some of the Controllers in the Controller Managers
+  - Node Controller
+  - Job Controller
+  - Endpoint Controller
+  - Deployment Controller
+  - ReplicaSet Controller
+  - Replication Controller
+- Controllers are the one which adds monitoring capability to the OpenShift cluster
+- Controllers always compares the Desired state with the Current State and when there is deviation it acts to ensure
+  the Desired State matches the Acutal Current State
+- Different Controller has differnt functionalities
+- For example
+  - Deployment Controller is the one which manages ReplicaSet ( an entry in the etcd database )
+  - Deployment Controller is the one which consumes Deployment and creates ReplicaSet as per the definition in Deployment
+  - ReplicaSet Controller is the one which manages the Pods( an entry in the etcd database )
+  - ReplicaSet Controller creates the Pod instances as per the Desired count in the ReplicaSet
+
+
 
 
 
