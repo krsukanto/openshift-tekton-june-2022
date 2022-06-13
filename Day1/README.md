@@ -137,7 +137,26 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 - IP address is assigned only the Pod level unlike Docker where every containers gets an IP address
 - a secret/infra container that supplies the network stack to the application container
 - the secret/infra container is called pause container, it uses k8s.gcr.io/pause container image
-- all the containers in the same Pod shares the network stack, IP Address, hostname, Volumes, etc.,                           
+- all the containers in the same Pod shares the network stack, IP Address, hostname, Volumes, etc.,                       
+
+## How to create Pod in Docker 
+```
+docker run -d --name nginx_pause --hostname nginx k8s.gcr.io/pause:3.6
+docker run -dit --name nginx --network=container:nginx_pause bitnami/nginx:1.20
+```
+
+#### Inspect the check the IP address of nginx_pause container
+```
+docker inspect nginx_pause|grep IPA
+```
+
+#### Get inside the nginx container and find the IP address
+```
+docker exec -it nginx /bin/sh
+hostname -i
+```
+
+The expectation is, what IP address is assigned to the nginx_pause container, it will reflect within the nginx container as well, as they share the network stack, hence they share the IP address.  These two containers are collectively called as a Pod.
 
 #### API Server
 - this component implements the Orchestration features as REST API
