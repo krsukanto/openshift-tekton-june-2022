@@ -304,7 +304,15 @@ Non-terminated Pods:                                (59 in total)
 Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
   Resource           Requests      Limits
-  --------           --------      ------
+  --------           --------      ------Expected output
+322
+<pre>
+323
+oc edit node/master-1.ocp.tektutor.org
+324
+</pre>
+325
+
   cpu                2080m (27%)   0 (0%)
   memory             6773Mi (10%)  0 (0%)
   ephemeral-storage  0 (0%)        0 (0%)
@@ -313,7 +321,7 @@ Allocated resources:
 Events:              <none>
 </pre>
 
-## Editing node properties that are mutable
+## ⛹️‍♀️ Lab - Editing node properties that are mutable
 ```
 oc edit node/master-1.ocp.tektutor.org
 ```
