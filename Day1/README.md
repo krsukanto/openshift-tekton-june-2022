@@ -567,3 +567,20 @@ pod/nginx-679c8f9884-66hjs   0/1     ContainerCreating   0          8s
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-679c8f9884-66hjs   1/1     Running   0          20s
 </pre>
+
+## ⛹️‍♂️ Lab - Scaling up the nginx deployment
+```
+oc scale deploy/nginx --replicas=3
+```
+
+Expected output 
+<pre>
+(jegan@tektutor.org)$ <b>oc scale deploy/nginx --replicas=3</b>
+deployment.apps/nginx scaled
+(jegan@tektutor.org)$ <b>oc get po -w</b>
+NAME                     READY   STATUS              RESTARTS   AGE
+nginx-679c8f9884-76vnt   0/1     ContainerCreating   0          4s
+nginx-679c8f9884-bb895   1/1     Running             0          101s
+nginx-679c8f9884-wm9fn   1/1     Running             0          4s
+nginx-679c8f9884-76vnt   1/1     Running             0          14s
+</pre>
