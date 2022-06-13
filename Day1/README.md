@@ -40,7 +40,7 @@
   4. Azure OpenShift - Managed Red OpenShift from Azure(Microsoft)
 - RedHat's distribution of Kubernetes with many additional features added on top of Kubernetes
 
-## Difference between Kubernetes and RedHat OpenShift
+## Difference between Kubernetes andS RedHat OpenShift
 
 ### Kubernetes
 - mainly command-line
@@ -138,3 +138,27 @@
   - a Pod where your application source are cloned from code repository and compiled/packaged into
     custom container images, which are later pushed into OpenShift Image Registry as Image Streams
 
+## RedHat OpenShift commands
+
+### Listing OpenShift cluster nodes
+```
+oc get nodes
+```
+
+Expected output 
+<pre>
+(jegan@tektutor.org)$ <b>oc get nodes</b>
+NAME                        STATUS   ROLES           AGE    VERSION
+master-1.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
+master-2.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
+master-3.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
+worker-1.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
+worker-2.ocp.tektutor.org  (jegan@tektutor.org)$ oc get nodes
+NAME                        STATUS   ROLES           AGE    VERSION
+master-1.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
+master-2.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
+master-3.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
+worker-1.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
+worker-2.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
+ Ready    worker          2d6h   v1.23.5+3afdacb
+</pre>
