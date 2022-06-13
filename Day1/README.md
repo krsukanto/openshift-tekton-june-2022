@@ -119,4 +119,22 @@
 - multus - network interface that allows to communicate with differents type of network add-ons like ( Flannel, Canal, Calico, Weave, etc.,)
 
 
+### RedHat OpenShift Resources
+- the smallest unit that can be deployed in an OpenShift cluster is called Pod
+- Pod has one or more containers
+- application containers will be running inside a Pod
+- ReplicaSet is another resource supported in Kubernetes/OpenShift which manages Pods
+- Deployment is another type of resource supported in Kubernetes/OpenShift which manges ReplicaSet
+- Services are of 3 types
+  1. ClusterIP ( Internal service )
+  2. NodePort ( External Service )
+  3. LoadBalancer ( External Service )
+- DeployConfig is another type of resource supported in OpenShift to deploy applications
+  - This was added in OpenShift when there was no support for Deployment and ReplicaSet in Kubernetes
+- BuildConfig
+  - a Custom Resource added in OpenShift
+  - application build Pods are created based on BuildConfig definition
+- Build
+  - a Pod where your application source are cloned from code repository and compiled/packaged into
+    custom container images, which are later pushed into OpenShift Image Registry as Image Streams
 
