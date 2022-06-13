@@ -153,12 +153,5 @@ master-1.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
 master-2.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
 master-3.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
 worker-1.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
-worker-2.ocp.tektutor.org  (jegan@tektutor.org)$ oc get nodes
-NAME                        STATUS   ROLES           AGE    VERSION
-master-1.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
-master-2.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
-master-3.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
-worker-1.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
 worker-2.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
- Ready    worker          2d6h   v1.23.5+3afdacb
 </pre>
