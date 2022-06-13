@@ -533,3 +533,14 @@ Expected output
 (jegan@tektutor.org)$ <b>oc delete deploy/nginx</b>
 deployment.apps "nginx" deleted
 </pre>
+
+## ⛹️‍♂️ Lab - Listing multiple resource with a single command
+```
+oc get deploy,rs,po
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get deploy,rs,po</b>
+No resources found in jegan namespace.
+</pre>
