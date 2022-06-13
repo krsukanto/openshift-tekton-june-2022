@@ -32,5 +32,47 @@
       automatically
 
 ## OpenShift Overview
+- an Orchestration Platfrom built on top of Google Kubernetes(Opensource)
+- OpenShift comes in 2 flavours
+  1. OKD(Origin) - opensource
+  2. RedHat OpenShift ( Enterprise Product ) 
+  3. AWS ROSA - Managed Red OpenShift from AWS(Amazon)
+  4. Azure OpenShift - Managed Red OpenShift from Azure(Microsoft)
+- RedHat's distribution of Kubernetes with many additional features added on top of Kubernetes
+
+## Difference between Kubernetes and RedHat OpenShift
+
+### Kubernetes
+- mainly command-line
+- supports RBAC(Role Based Access Control) but there is no inbuilt user management
+- there is a basic version of Webconsole(Dashboard, but generally not used in Production)
+- most of the organization use only the CLI
+- orchestration platform
+- supports rolling update, services, scale up/down, self-healing, monitoring features
+- No webconsole
+- no built-in private container registry, however we can configure Kubernetes to use an externally setup
+  container private registry
+- no build-in version control support within Kubernetes
+- Tekton CI/CD is not pre-integrated but can be installed to support CI/CD
+- no support, only community support with no SLA
+- Command-Lint tools used here
+   - kubectl
+   - kubeadm
+   - tkn
+
+### RedHat OpenShift
+- supports command line and webconsole GUI
+- supports User Management out of the box
+- supports Private container registry within RedHat OpenShift out of the box
+- supports setting up Private GitHub like version control softwares within RedHat OpenShift
+- Tekton CI/CD is nicely integrated and supported by RedHat
+- overall Openshift gets good support from RedHat as it is a paid Enterprise Product 
+- RedHat OpenShift can do all the things that Kubernetes can do + many additional features
+- Command-Line tool used here
+   - oc
+   - kubectl
+   - tkn
+
+
 
 
