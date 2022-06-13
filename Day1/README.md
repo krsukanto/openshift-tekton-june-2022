@@ -610,3 +610,59 @@ Expected output
 NAME                     READY   STATUS    RESTARTS   AGE     IP            NODE                        NOMINATED NODE   READINESS GATES
 nginx-679c8f9884-76vnt   1/1     Running   0          5m22s   <b>10.130.0.80</b>   master-2.ocp.tektutor.org   <none>           <none>
 </pre>
+
+
+## ⛹️‍♂️ Lab - Creating a ClusterIP Internal Service
+```
+oc expose deploy/nginx --type=ClusterIP --port=8080
+```
+
+### List the services
+```
+oc get services
+oc get service
+oc get svc
+```
+
+Expected output
+
+### Describe a service to find the Pod endpoints connected to a service
+```
+oc describe svc/nginx
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc describe svc/nginx</b>
+Name:              nginx
+Namespace:         jegan
+Labels:            app=nginx
+Annotations:       <none>
+Selector:          app=nginx
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                172.30.99.206
+IPs:               172.30.99.206
+Port:              <unset>  8080/TCP
+TargetPort:        8080/TCP
+Endpoints:         10.128.1.236:8080,10.128.1.237:8080,10.128.1.238:8080 + 17 more...
+Session Affinity:  None
+Events:            <none>
+</pre>
+
+
+## ⛹️‍♀️ Lab - Creating a route - an externally accessible url from the service
+```
+oc expose svc/nginx --port=8080
+```
+
+#### Listing the route
+```
+oc get route
+```
+
+#### Describing the route
+```
+oc descibe route nginx 
+```
