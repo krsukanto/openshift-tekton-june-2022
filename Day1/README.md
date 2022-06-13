@@ -1,6 +1,8 @@
 # Day 1 - OpenShift
 
 ## Container Engine vs Container Runtime
+(jegan@tektutor.org)$ oc project
+Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 
 Docker is a Container Enginer
 Docker uses runc Container Runtime
@@ -44,7 +46,9 @@ Container Engine
   - exposing service 
     - service represents a group of similar application Pods
     - load-balanced group of similar application Pods
-    - internal/external service
+    - internal/external service(jegan@tektutor.org)$ oc project
+Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
+
   - inbuilt monitoring facility
     - whenever your application stops responding, it will be replaced with another good working instance
       automatically
@@ -122,7 +126,9 @@ Container Engine
 ## RedHat OpenShift Master Node
 - this is where the Control Plane components runs
 - Control Plane Components 
-  1. API Server
+  1. API Server(jegan@tektutor.org)$ oc project
+Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
+
   2. etcd datastore
   3. Schedule
   4. Controller Managers ( a collection of many Controllers )
@@ -285,7 +291,9 @@ Non-terminated Pods:                                (59 in total)
   openshift-dns                                     dns-default-lwjwf                                           60m (0%)      0 (0%)      110Mi (0%)       0 (0%)         2d7h
   openshift-dns                                     node-resolver-2jjwb                                         5m (0%)       0 (0%)      21Mi (0%)        0 (0%)         2d7h
   openshift-etcd-operator                           etcd-operator-6574c45d8-jf9nr                               10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
-  openshift-etcd                                    etcd-master-1.ocp.tektutor.org                              400m (5%)     0 (0%)      930Mi (1%)       0 (0%)         2d7h
+  openshift-etcd                                    etcd-master-1.ocp.t(jegan@tektutor.org)$ oc project
+Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
+ektutor.org                              400m (5%)     0 (0%)      930Mi (1%)       0 (0%)         2d7h
   openshift-etcd                                    etcd-quorum-guard-54c99fcc95-2ptq2                          10m (0%)      0 (0%)      5Mi (0%)         0 (0%)         2d7h
   openshift-image-registry                          cluster-image-registry-operator-584d54c484-2nz7z            10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
   openshift-image-registry                          node-ca-fj6k7                                               10m (0%)      0 (0%)      10Mi (0%)        0 (0%)         2d7h
@@ -430,6 +438,7 @@ openshift-user-workload-monitoring                                Active
 openshift-vsphere-infra                                           Active
 </pre>
 
+
 ## ⛹️ Lab - Creating a project in OpenShift
 Please change the name to your short name in the command below.
 ```
@@ -448,6 +457,17 @@ You can add applications to this project with the 'new-app' command. For example
 to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
 
     kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
+</pre>
+
+## ⛹️‍♀️ Lab - Finding the active project
+```
+oc project
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc project</b>
+Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 </pre>
 
 ## ⛹️‍♂️ Lab - Deploying a nginx web server within your project
