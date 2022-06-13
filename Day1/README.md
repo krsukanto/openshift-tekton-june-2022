@@ -544,3 +544,26 @@ Expected output
 (jegan@tektutor.org)$ <b>oc get deploy,rs,po</b>
 No resources found in jegan namespace.
 </pre>
+
+## ⛹️‍♀️ Lab - Creating a nginx deployment using the bitnami image which is rootless
+```
+oc create deploy nginx --image=bitnami/nginx:1.20
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create deploy nginx --image=bitnami/nginx:1.20</b>
+deployment.apps/nginx created
+(jegan@tektutor.org)$ <b>oc get deploy,rs,po</b>
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx   0/1     1            0           8s
+
+NAME                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-679c8f9884   1         1         0       8s
+
+NAME                         READY   STATUS              RESTARTS   AGE
+pod/nginx-679c8f9884-66hjs   0/1     ContainerCreating   0          8s
+(jegan@tektutor.org)$ <b>oc get po -w</b>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-679c8f9884-66hjs   1/1     Running   0          20s
+</pre>
