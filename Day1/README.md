@@ -1,5 +1,23 @@
 # Day 1 - OpenShift
 
+## Container Engine vs Container Runtime
+
+Docker is a Container Enginer
+Docker uses runc Container Runtime
+
+Container Runtime
+- is the tool that manages the containers
+- create, list, stop, start, restart, kill, abort delete
+- Example
+  runc, CRI-O(Used in RedHat OpenShift)
+
+Container Engine
+- is a high-level tool that depends on Container Runtime to manage containers
+- it might depend on other tools to manage Container images
+- this is the user-friendly tool that make the end-user life easy to manage images and containers
+- For example
+  Docker, Podman(Used in RedHat OpenShift)
+
 ## What is a Container Orchestration Platform?
 - a container management platform
 - Example
@@ -88,6 +106,14 @@
 - an Operating system that is optimized to be used in an Orchestration Platfrom like RedHat OpenShift
 - it comes with CRI-O container runtime pre-installed
 - it is easy to upgrade the OS with OpenShift commands
+- it follows many container best practices, it enforces best practice by imposing certain restrictions on our containerized applications
+- Restrictions imposed by CoreOS
+  - certain ports like 80 is reserved
+  - our applications aren't supposed used Port 80
+  - containers can only access files and folder within their home directory
+  - normally applictions are allowed to run only as non-admin users unlike Kubernetes(where the applications can be executed as admin/non-admin)
+  - /var, /etc /, /root folders are restricted. Only super users will have access to these folder
+  - we must avoid using container images that doesn't adhere to the above best practices
 
 ## What would happen if you have installed RHEL on RedHat OpenShift worker nodes
 - upgrading Operating System from one version to other is your responsibilty
