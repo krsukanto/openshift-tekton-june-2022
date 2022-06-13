@@ -724,3 +724,126 @@ Commercial support is available at
 </body>
 </html>
 </pre>
+
+
+## ⛹️‍♀️ Lab - Label Selector
+
+### Deployment
+- Every deployment has labels and a Selector section.
+- the labels in the selector section, tells how the deployment will pick the replicasets managed by the deployment
+
+### ReplicaSet
+- Every replicaset has labels and a Selector section
+- the labels in the selector section is used by ReplicaSet to pick the Pods managed by that ReplicaSet
+
+### List all deployment with label details
+```
+oc get deploy --show-labels
+```
+Expected ouptut
+<pre>
+(jegan@tektutor.org)$ <b>oc get deploy --show-labels</b>
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE    LABELS
+nginx   20/20   20           20          168m   app=nginx
+web     6/6     6            6           40m    app=web
+</pre>
+
+
+### List all replicaset(s) with label details
+```
+oc get rs --show-labels
+```
+
+Expected ouptut
+<pre>
+(jegan@tektutor.org)$ <b>oc get rs --show-labels</b>
+NAME               DESIRED   CURRENT   READY   AGE    LABELS
+nginx-679c8f9884   20        20        20      164m   app=nginx,pod-template-hash=679c8f9884
+web-59fcd954c8     6         6         6       40m    app=web,pod-template-hash=59fcd954c8
+</pre>
+
+
+### List all pods with label details
+```
+oc get po --show-labels
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get po --show-labels</b>
+NAME                     READY   STATUS    RESTARTS   AGE    LABELS
+nginx-679c8f9884-4cvsf   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-4h9xg   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-6ncw9   1/1     Running   0          70m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-76vnt   1/1     Running   0          163m   app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-7bz4s   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-87zhk   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-8xwb5   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-bctt8   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-bp8xd   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-dn4mv   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-fl4lg   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-glshf   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-p2fqf   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-qpltx   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-rmtj9   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-slzhc   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-ts2wg   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-vv245   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-wgt5l   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+nginx-679c8f9884-zj2h9   1/1     Running   0          68m    app=nginx,pod-template-hash=679c8f9884
+web-59fcd954c8-bnkjh     1/1     Running   0          40m    app=web,pod-template-hash=59fcd954c8
+web-59fcd954c8-cgqjh     1/1     Running   0          40m    app=web,pod-template-hash=59fcd954c8
+web-59fcd954c8-crqcw     1/1     Running   0          40m    app=web,pod-template-hash=59fcd954c8
+web-59fcd954c8-lwrsl     1/1     Running   0          40m    app=web,pod-template-hash=59fcd954c8
+web-59fcd954c8-smgmv     1/1     Running   0          40m    app=web,pod-template-hash=59fcd954c8
+web-59fcd954c8-w5jtc     1/1     Running   0          41m    app=web,pod-template-hash=59fcd954c8
+</pre>
+
+### This is how deployment picks its replicaset(s)
+```
+oc get rs -l 
+```
+Expected output 
+<pre>
+(jegan@tektutor.org)$ <b>oc get rs -l app=nginx</b>
+NAME               DESIRED   CURRENT   READY   AGE
+nginx-679c8f9884   20        20        20      161m
+</pre>
+
+
+### List all replicasets with label details
+```
+oc get rs --show-labels
+```
+### This is how replicaset pick its pods
+```
+oc get po -l app=nginx,pod-template-hash=679c8f9884
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get po -l app=nginx,pod-template-hash=679c8f9884</b>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-679c8f9884-4cvsf   1/1     Running   0          59m
+nginx-679c8f9884-4h9xg   1/1     Running   0          59m
+nginx-679c8f9884-6ncw9   1/1     Running   0          61m
+nginx-679c8f9884-76vnt   1/1     Running   0          154m
+nginx-679c8f9884-7bz4s   1/1     Running   0          59m
+nginx-679c8f9884-87zhk   1/1     Running   0          59m
+nginx-679c8f9884-8xwb5   1/1     Running   0          59m
+nginx-679c8f9884-bctt8   1/1     Running   0          59m
+nginx-679c8f9884-bp8xd   1/1     Running   0          59m
+nginx-679c8f9884-dn4mv   1/1     Running   0          59m
+nginx-679c8f9884-fl4lg   1/1     Running   0          59m
+nginx-679c8f9884-glshf   1/1     Running   0          59m
+nginx-679c8f9884-p2fqf   1/1     Running   0          59m
+nginx-679c8f9884-qpltx   1/1     Running   0          59m
+nginx-679c8f9884-rmtj9   1/1     Running   0          59m
+nginx-679c8f9884-slzhc   1/1     Running   0          59m
+nginx-679c8f9884-ts2wg   1/1     Running   0          59m
+nginx-679c8f9884-vv245   1/1     Running   0          59m
+nginx-679c8f9884-wgt5l   1/1     Running   0          59m
+nginx-679c8f9884-zj2h9   1/1     Running   0          59m
+</pre>
+
+
