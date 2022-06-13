@@ -155,3 +155,19 @@ master-3.ocp.tektutor.org   Ready    master,worker   2d6h   v1.23.5+3afdacb
 worker-1.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
 worker-2.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
 </pre>
+
+### List nodes in wide mode
+```
+oc get nodes -o wide
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get nodes -o wide</b>
+NAME                        STATUS   ROLES           AGE    VERSION           INTERNAL-IP       EXTERNAL-IP   OS-IMAGE                                                        KERNEL-VERSION                 CONTAINER-RUNTIME
+master-1.ocp.tektutor.org   Ready    master,worker   2d7h   v1.23.5+3afdacb   192.168.122.245   <none>        Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)   4.18.0-305.49.1.el8_4.x86_64   cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
+master-2.ocp.tektutor.org   Ready    master,worker   2d7h   v1.23.5+3afdacb   192.168.122.152   <none>        Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)   4.18.0-305.49.1.el8_4.x86_64   cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
+master-3.ocp.tektutor.org   Ready    master,worker   2d7h   v1.23.5+3afdacb   192.168.122.144   <none>        Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)   4.18.0-305.49.1.el8_4.x86_64   cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
+worker-1.ocp.tektutor.org   Ready    worker          2d7h   v1.23.5+3afdacb   192.168.122.26    <none>        Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)   4.18.0-305.49.1.el8_4.x86_64   cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
+worker-2.ocp.tektutor.org   Ready    worker          2d7h   v1.23.5+3afdacb   192.168.122.180   <none>        Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)   4.18.0-305.49.1.el8_4.x86_64   cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
+</pre>
