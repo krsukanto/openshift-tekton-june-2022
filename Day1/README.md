@@ -327,6 +327,7 @@ oc edit node/master-1.ocp.tektutor.org
 ```
 
 ## ⛹️ Lab - Creating a project in OpenShift
+Please change the name to your short name in the command below.
 ```
 oc new-project jegan
 ```
