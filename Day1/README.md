@@ -56,9 +56,9 @@
 - Tekton CI/CD is not pre-integrated but can be installed to support CI/CD
 - no support, only community support with no SLA
 - Command-Lint tools used here
-   - kubectl
-   - kubeadm
-   - tkn
+   - kubectl ( client tool used by all of us to deploy and manage applications )
+   - kubeadm ( administrative tool used to setup kubernetes cluster )
+   - tkn ( tekton client tool used to create and manage Tekton CI/CD pipeline )
 
 ### RedHat OpenShift
 - supports command line and webconsole GUI
@@ -69,10 +69,54 @@
 - overall Openshift gets good support from RedHat as it is a paid Enterprise Product 
 - RedHat OpenShift can do all the things that Kubernetes can do + many additional features
 - Command-Line tool used here
-   - oc
-   - kubectl
-   - tkn
+   - oc ( client tool used to deploy and manage applications )
+   - kubectl ( client tool used to deploy and manage applications )
+   - tkn ( Tekton client tool used to create CI/CD pipline and manage them )
 
+
+## What is a OpenShift cluster?
+- a collection of many nodes
+- each Node could be a physical server, virtual machine of a cloud ec2 instance running in AWS/Azure, etc.,
+- nodes are of two types
+  1. Master Node
+  2. Worker Node
+
+## What is RedHat Enterprise Core OS(RHCOS)?
+- RedHat acquired a company called CoreOS, who developed rkt container runtime and optimized OS for containers
+- this Operating System is based RedHat Enterprise Linux combined with Core OS
+- it is an Operating System optimized for Containerized applications
+- an Operating system that is optimized to be used in an Orchestration Platfrom like RedHat OpenShift
+- it comes with CRI-O container runtime pre-installed
+- it is easy to upgrade the OS with OpenShift commands
+
+## What would happen if you have installed RHEL on RedHat OpenShift worker nodes
+- upgrading Operating System from one version to other is your responsibilty
+- it is not possible to upgrade using OpenShift,you need to find your own ways to automate
+
+## RedHat OpenShift Master Node
+- this is where the Control Plane components runs
+- Control Plane Components 
+  1. API Server
+  2. etcd datastore
+  3. Schedule
+  4. Controller Managers ( a collection of many Controllers )
+- it is also possible to configure master node to run user application in addition to control plane components
+- if a master node has master and worker role, this is an indication that it can also run user applications
+- if a master node has only master role, no user application can be deployed on to the master node
+- this can only be RHCOS ( RedHat Enterprise Core OS 
+
+## RedHat OpenShift Worker Node
+- this is where user applications will be running
+- Worker Node Operating can be either RHEL(RedHat Enterprise Linux) or RHCOS(RedHat Enterprise Core OS )
+- RedHat recommned using RHCOS on all nodes 
+
+## Common components that run on both Master and Worker Nodes in RedHat OpenShift
+- kubelet Openshift container Agent 
+- kubelet is a daemon that runs as a service
+- kubelet communicates with the CRI-O container runtime to manage Pods
+- kube-proxy - load-balancing for service
+- core-dns - supports service discovery
+- multus - network interface that allows to communicate with differents type of network add-ons like ( Flannel, Canal, Calico, Weave, etc.,)
 
 
 
