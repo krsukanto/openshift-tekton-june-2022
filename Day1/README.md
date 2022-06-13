@@ -171,3 +171,144 @@ master-3.ocp.tektutor.org   Ready    master,worker   2d7h   v1.23.5+3afdacb   19
 worker-1.ocp.tektutor.org   Ready    worker          2d7h   v1.23.5+3afdacb   192.168.122.26    <none>        Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)   4.18.0-305.49.1.el8_4.x86_64   cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
 worker-2.ocp.tektutor.org   Ready    worker          2d7h   v1.23.5+3afdacb   192.168.122.180   <none>        Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)   4.18.0-305.49.1.el8_4.x86_64   cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
 </pre>
+
+
+## Find more details about a node
+```
+oc describe node/master-1.ocp.tektutor.org
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc describe node/master-1.ocp.tektutor.org</b>
+Name:               master-1.ocp.tektutor.org
+Roles:              master,worker
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=master-1.ocp.tektutor.org
+                    kubernetes.io/os=linux
+                    node-role.kubernetes.io/master=
+                    node-role.kubernetes.io/worker=
+                    node.openshift.io/os_id=rhcos
+Annotations:        machineconfiguration.openshift.io/controlPlaneTopology: HighlyAvailable
+                    machineconfiguration.openshift.io/currentConfig: rendered-master-7172f9670bde654c6c0bce4e95844ec8
+                    machineconfiguration.openshift.io/desiredConfig: rendered-master-7172f9670bde654c6c0bce4e95844ec8
+                    machineconfiguration.openshift.io/reason: 
+                    machineconfiguration.openshift.io/state: Done
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Sat, 11 Jun 2022 04:21:15 +0530
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  master-1.ocp.tektutor.org
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 13 Jun 2022 11:45:33 +0530
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Mon, 13 Jun 2022 11:40:44 +0530   Sat, 11 Jun 2022 04:36:20 +0530   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Mon, 13 Jun 2022 11:40:44 +0530   Sat, 11 Jun 2022 04:36:20 +0530   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Mon, 13 Jun 2022 11:40:44 +0530   Sat, 11 Jun 2022 04:36:20 +0530   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Mon, 13 Jun 2022 11:40:44 +0530   Sat, 11 Jun 2022 04:36:20 +0530   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.122.245
+  Hostname:    master-1.ocp.tektutor.org
+Capacity:
+  cpu:                8
+  ephemeral-storage:  104322028Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             64405380Ki
+  pods:               250
+Allocatable:
+  cpu:                7500m
+  ephemeral-storage:  96143180846
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             63254404Ki
+  pods:               250
+System Info:
+  Machine ID:                                       6ce15721c778419e8a91f4e734d9ae6f
+  System UUID:                                      6ce15721-c778-419e-8a91-f4e734d9ae6f
+  Boot ID:                                          c88a3a90-b92d-458d-b751-22c786724620
+  Kernel Version:                                   4.18.0-305.49.1.el8_4.x86_64
+  OS Image:                                         Red Hat Enterprise Linux CoreOS 410.84.202206010432-0 (Ootpa)
+  Operating System:                                 linux
+  Architecture:                                     amd64
+  Container Runtime Version:                        cri-o://1.23.2-12.rhaos4.10.git5fe1720.el8
+  Kubelet Version:                                  v1.23.5+3afdacb
+  Kube-Proxy Version:                               v1.23.5+3afdacb
+Non-terminated Pods:                                (59 in total)
+  Namespace                                         Name                                                        CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                                         ----                                                        ------------  ----------  ---------------  -------------  ---
+  openshift-apiserver-operator                      openshift-apiserver-operator-5c5594c98b-czrt5               10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-apiserver                               apiserver-6d9bd56644-hpq8x                                  110m (1%)     0 (0%)      250Mi (0%)       0 (0%)         2d7h
+  openshift-authentication-operator                 authentication-operator-66b6d4cb4d-rdj77                    20m (0%)      0 (0%)      200Mi (0%)       0 (0%)         2d7h
+  openshift-authentication                          oauth-openshift-57f74fffb6-m4cs7                            10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-cloud-credential-operator               cloud-credential-operator-77bbf9fc9f-hx8hc                  20m (0%)      0 (0%)      170Mi (0%)       0 (0%)         2d7h
+  openshift-cluster-machine-approver                machine-approver-75bf9f9f78-d54wr                           20m (0%)      0 (0%)      70Mi (0%)        0 (0%)         2d7h
+  openshift-cluster-node-tuning-operator            cluster-node-tuning-operator-7b576767b-7q7gv                10m (0%)      0 (0%)      20Mi (0%)        0 (0%)         2d7h
+  openshift-cluster-node-tuning-operator            tuned-s95bf                                                 10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-cluster-storage-operator                cluster-storage-operator-7b8888c4cd-g48gc                   10m (0%)      0 (0%)      20Mi (0%)        0 (0%)         2d7h
+  openshift-cluster-storage-operator                csi-snapshot-controller-operator-54fbf6bcb4-5tswn           10m (0%)      0 (0%)      65Mi (0%)        0 (0%)         2d7h
+  openshift-config-operator                         openshift-config-operator-554466db77-wgncz                  10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-controller-manager-operator             openshift-controller-manager-operator-6cc4cf9d4-q786w       10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-controller-manager                      controller-manager-x6774                                    100m (1%)     0 (0%)      100Mi (0%)       0 (0%)         31h
+  openshift-dns-operator                            dns-operator-b69bb8cf-cskkj                                 20m (0%)      0 (0%)      69Mi (0%)        0 (0%)         2d7h
+  openshift-dns                                     dns-default-lwjwf                                           60m (0%)      0 (0%)      110Mi (0%)       0 (0%)         2d7h
+  openshift-dns                                     node-resolver-2jjwb                                         5m (0%)       0 (0%)      21Mi (0%)        0 (0%)         2d7h
+  openshift-etcd-operator                           etcd-operator-6574c45d8-jf9nr                               10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-etcd                                    etcd-master-1.ocp.tektutor.org                              400m (5%)     0 (0%)      930Mi (1%)       0 (0%)         2d7h
+  openshift-etcd                                    etcd-quorum-guard-54c99fcc95-2ptq2                          10m (0%)      0 (0%)      5Mi (0%)         0 (0%)         2d7h
+  openshift-image-registry                          cluster-image-registry-operator-584d54c484-2nz7z            10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-image-registry                          node-ca-fj6k7                                               10m (0%)      0 (0%)      10Mi (0%)        0 (0%)         2d7h
+  openshift-ingress-canary                          ingress-canary-k98nm                                        10m (0%)      0 (0%)      20Mi (0%)        0 (0%)         2d7h
+  openshift-ingress-operator                        ingress-operator-d5b6d8497-bxlkr                            20m (0%)      0 (0%)      96Mi (0%)        0 (0%)         2d7h
+  openshift-ingress                                 router-default-5c56699d58-xtpgq                             100m (1%)     0 (0%)      256Mi (0%)       0 (0%)         2d7h
+  openshift-insights                                insights-operator-6fc8988555-s4dpx                          10m (0%)      0 (0%)      30Mi (0%)        0 (0%)         2d7h
+  openshift-kube-apiserver-operator                 kube-apiserver-operator-7fb744f444-kbm9x                    10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-kube-apiserver                          kube-apiserver-guard-master-1.ocp.tektutor.org              10m (0%)      0 (0%)      5Mi (0%)         0 (0%)         2d7h
+  openshift-kube-apiserver                          kube-apiserver-master-1.ocp.tektutor.org                    290m (3%)     0 (0%)      1224Mi (1%)      0 (0%)         31h
+  openshift-kube-controller-manager-operator        kube-controller-manager-operator-847c8fc9cd-cr5sh           10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-kube-controller-manager                 kube-controller-manager-guard-master-1.ocp.tektutor.org     10m (0%)      0 (0%)      5Mi (0%)         0 (0%)         2d7h
+  openshift-kube-controller-manager                 kube-controller-manager-master-1.ocp.tektutor.org           80m (1%)      0 (0%)      500Mi (0%)       0 (0%)         2d7h
+  openshift-kube-scheduler-operator                 openshift-kube-scheduler-operator-59c88f798b-mtcq7          10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-kube-scheduler                          openshift-kube-scheduler-guard-master-1.ocp.tektutor.org    10m (0%)      0 (0%)      5Mi (0%)         0 (0%)         2d7h
+  openshift-kube-scheduler                          openshift-kube-scheduler-master-1.ocp.tektutor.org          25m (0%)      0 (0%)      150Mi (0%)       0 (0%)         2d7h
+  openshift-kube-storage-version-migrator-operator  kube-storage-version-migrator-operator-5b8f9fc4d7-v4n7h     10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-machine-api                             cluster-autoscaler-operator-6859fb9676-xk84q                30m (0%)      0 (0%)      70Mi (0%)        0 (0%)         2d7h
+  openshift-machine-api                             cluster-baremetal-operator-6d7b688697-m99v8                 20m (0%)      0 (0%)      70Mi (0%)        0 (0%)         2d7h
+  openshift-machine-api                             machine-api-operator-f44fc8fb4-vdnqx                        20m (0%)      0 (0%)      70Mi (0%)        0 (0%)         2d7h
+  openshift-machine-config-operator                 machine-config-daemon-hdjxk                                 40m (0%)      0 (0%)      100Mi (0%)       0 (0%)         2d7h
+  openshift-machine-config-operator                 machine-config-operator-7b5c44f84-nckdj                     20m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-machine-config-operator                 machine-config-server-7hfbj                                 20m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-marketplace                             community-operators-bdv7p                                   10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-marketplace                             marketplace-operator-75f56cb469-64xft                       10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-monitoring                              cluster-monitoring-operator-6cdf847fd-cp2wb                 11m (0%)      0 (0%)      95Mi (0%)        0 (0%)         2d7h
+  openshift-monitoring                              node-exporter-ftjbz                                         9m (0%)       0 (0%)      47Mi (0%)        0 (0%)         2d7h
+  openshift-multus                                  multus-7chfv                                                10m (0%)      0 (0%)      65Mi (0%)        0 (0%)         2d7h
+  openshift-multus                                  multus-additional-cni-plugins-ph92c                         10m (0%)      0 (0%)      10Mi (0%)        0 (0%)         2d7h
+  openshift-multus                                  multus-admission-controller-228xr                           20m (0%)      0 (0%)      70Mi (0%)        0 (0%)         2d7h
+  openshift-multus                                  network-metrics-daemon-jp54n                                20m (0%)      0 (0%)      120Mi (0%)       0 (0%)         2d7h
+  openshift-network-diagnostics                     network-check-target-qxxs2                                  10m (0%)      0 (0%)      15Mi (0%)        0 (0%)         2d7h
+  openshift-network-operator                        network-operator-795b8654d8-mvhgg                           10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-oauth-apiserver                         apiserver-6576f465dc-wlv8b                                  150m (2%)     0 (0%)      200Mi (0%)       0 (0%)         2d7h
+  openshift-operator-lifecycle-manager              catalog-operator-6f86b5477d-8s2qw                           10m (0%)      0 (0%)      80Mi (0%)        0 (0%)         2d7h
+  openshift-operator-lifecycle-manager              olm-operator-86787bdfd6-whxfn                               10m (0%)      0 (0%)      160Mi (0%)       0 (0%)         2d7h
+  openshift-operator-lifecycle-manager              package-server-manager-69f6fb76d6-48wrm                     10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-operator-lifecycle-manager              packageserver-848c99f96c-b9pmj                              10m (0%)      0 (0%)      50Mi (0%)        0 (0%)         2d7h
+  openshift-sdn                                     sdn-cdbc2                                                   110m (1%)     0 (0%)      220Mi (0%)       0 (0%)         2d7h
+  openshift-sdn                                     sdn-controller-wrs67                                        20m (0%)      0 (0%)      70Mi (0%)        0 (0%)         2d7h
+  openshift-service-ca-operator                     service-ca-operator-65d6c9595-ljwpz                         10m (0%)      0 (0%)      80Mi (0%)        0 (0%)         2d7h
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests      Limits
+  --------           --------      ------
+  cpu                2080m (27%)   0 (0%)
+  memory             6773Mi (10%)  0 (0%)
+  ephemeral-storage  0 (0%)        0 (0%)
+  hugepages-1Gi      0 (0%)        0 (0%)
+  hugepages-2Mi      0 (0%)        0 (0%)
+Events:              <none>
+</pre>
