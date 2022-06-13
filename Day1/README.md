@@ -345,3 +345,55 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
 
     kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
 </pre>
+
+## Deploying a nginx web server within your project
+```
+oc create deploy nginx --image=nginx:latest
+```
+Expected output 
+<pre>
+(jegan@tektutor.org)$ oc create deployment nginx --image=nginx:latest
+deployment.apps/nginx created
+</pre>
+
+## Listing deployments
+```
+oc get deployments
+oc get deployment
+oc get deploy
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc get deploy
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   0/1     1            0           10s
+</pre>
+
+## Listing Replicasets
+```
+oc get replicasets
+oc get replicaset
+oc get rs
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc get replicasets
+NAME               DESIRED   CURRENT   READY   AGE
+nginx-7c658794b9   1         1         0       15s
+</pre>
+
+
+## Listing Pods
+```
+oc get pods
+oc get pod
+oc get po
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc get pods
+NAME                     READY   STATUS              RESTARTS   AGE
+nginx-7c658794b9-ttfqv   0/1     ContainerCreating   0          16s
+</pre>
