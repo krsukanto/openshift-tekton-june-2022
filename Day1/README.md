@@ -1,4 +1,20 @@
-# Day 1 - OpenShift
+# Day 1 - OpenShift(jegan@tektutor.org)$ oc describe route nginx
+Name:			nginx
+Namespace:		jegan
+Created:		23 minutes ago
+Labels:			app=nginx
+Annotations:		openshift.io/host.generated=true
+Requested Host:		nginx-jegan.apps.ocp.tektutor.org
+			   exposed on router default (host router-default.apps.ocp.tektutor.org) 23 minutes ago
+Path:			<none>
+TLS Termination:	<none>
+Insecure Policy:	<none>
+Endpoint Port:		8080
+
+Service:	nginx
+Weight:		100 (100%)
+Endpoints:	10.128.1.236:8080, 10.128.1.237:8080, 10.128.1.238:8080 + 17 more...
+
 
 ## Container Engine vs Container Runtime
 (jegan@tektutor.org)$ oc project
@@ -656,13 +672,74 @@ Events:            <none>
 ```
 oc expose svc/nginx --port=8080
 ```
-
 #### Listing the route
 ```
 oc get route
 ```
 
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get route</b>
+NAME    HOST/PORT                           PATH   SERVICES   PORT   TERMINATION   WILDCARD
+nginx   nginx-jegan.apps.ocp.tektutor.org          nginx      8080                 None
+</pre>
+
 #### Describing the route
 ```
 oc descibe route nginx 
 ```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc describe route nginx</b>
+Name:			nginx
+Namespace:		jegan
+Created:		23 minutes ago
+Labels:			app=nginx
+Annotations:		openshift.io/host.generated=true
+Requested Host:		nginx-jegan.apps.ocp.tektutor.org
+			   exposed on router default (host router-default.apps.ocp.tektutor.org) 23 minutes ago
+Path:			<none>
+TLS Termination:	<none>
+Insecure Policy:	<none>
+Endpoint Port:		8080
+
+Service:	nginx
+Weight:		100 (100%)
+Endpoints:	10.128.1.236:8080, 10.128.1.237:8080, 10.128.1.238:8080 + 17 more...
+</pre>
+
+## ⛹️‍♂️ Lab - Accessing the route url
+```
+curl nginx-jegan.apps.ocp.tektutor.org
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>curl nginx-jegan.apps.ocp.tektutor.org</b>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+</pre>
