@@ -92,7 +92,6 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
    - kubectl ( client tool used to deploy and manage applications )
    - tkn ( Tekton client tool used to create CI/CD pipline and manage them )
 
-
 ## What is a OpenShift cluster?
 - a collection of many nodes
 - each Node could be a physical server, virtual machine of a cloud ec2 instance running in AWS/Azure, etc.,
@@ -123,16 +122,38 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 ## RedHat OpenShift Master Node
 - this is where the Control Plane components runs
 - Control Plane Components 
-  1. API Server(jegan@tektutor.org)$ oc project
-Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
-
+  1. API Server
   2. etcd datastore
-  3. Schedule
+  3. Scheduler
   4. Controller Managers ( a collection of many Controllers )
+ 
 - it is also possible to configure master node to run user application in addition to control plane components
 - if a master node has master and worker role, this is an indication that it can also run user applications
 - if a master node has only master role, no user application can be deployed on to the master node
 - this can only be RHCOS ( RedHat Enterprise Core OS 
+
+#### API Server
+- this component implements the Orchestration features as REST API
+- API Server is the only component that is allowed to read/write to etcd datastore
+- all the components in cluster, they are allowed to communicate only to API Server
+- no two components communicate directly with each
+- whenever API Server updates the data in etcd, it triggers different events depending what data is updated
+
+#### etcd key/value store
+- Only API Server will have access to this
+- the entire cluster state including application state is maintained in this database by API Server
+
+#### Scheduler
+- identifies a healthy node to deploy a Pod
+- whenever new Deployment are created, it is the responsibility of the Scheduler to allocate a node to the Pod
+- Scheduler also geta an update whenever scale up/down happens
+- Scheduler also gets an update when rolling update happens
+- Scheduler receives updates from A
+
+
+
+
+
 
 ## RedHat OpenShift Worker Node
 - this is where user applications will be running
@@ -146,7 +167,6 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 - kube-proxy - load-balancing for service
 - core-dns - supports service discovery
 - multus - network interface that allows to communicate with differents type of network add-ons like ( Flannel, Canal, Calico, Weave, etc.,)
-
 
 ### RedHat OpenShift Resources
 - the smallest unit that can be deployed in an OpenShift cluster is called Pod
@@ -166,6 +186,26 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
 - Build
   - a Pod where your application source are cloned from code repository and compiled/packaged into
     custom container images, which are later pushed into OpenShift Image Registry as Image Streams
+
+## etcd
+- key/value database that runs in the master node or external to master node
+- API Server is the only component in the Control Plane that has access to etcd database
+
+## Deployment
+- applications are normally deployed into OpenShift as Deployments
+- manages ReplicaSet
+- Deployment supports Rolling update
+- Deployment facilitates scale up/down via ReplicaSet
+- an entry in the etcd database
+
+## ReplicaSet
+- manages the Pods
+- supports scale up/down
+- an entry in the etcd database 
+
+## Pod
+- a group of related containers 
+- general best practice is one application per container
 
 ## RedHat OpenShift commands
 
