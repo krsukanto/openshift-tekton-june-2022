@@ -1,11 +1,8 @@
 # Day 1 - OpenShift
 
 ## Container Engine vs Container Runtime
-(jegan@tektutor.org)$ oc project
-Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
-
-Docker is a Container Enginer
-Docker uses runc Container Runtime
+- Docker is a Container Enginer
+- Docker uses runc Container Runtime
 
 Container Runtime
 - is the tool that manages the containers
