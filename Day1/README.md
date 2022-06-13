@@ -346,17 +346,17 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
     kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
 </pre>
 
-## Deploying a nginx web server within your project
+## ⛹️‍♂️ Lab - Deploying a nginx web server within your project
 ```
 oc create deploy nginx --image=nginx:latest
 ```
 Expected output 
 <pre>
-(jegan@tektutor.org)$ oc create deployment nginx --image=nginx:latest
+(jegan@tektutor.org)$ <b>oc create deployment nginx --image=nginx:latest</b>
 deployment.apps/nginx created
 </pre>
 
-## Listing deployments
+#### Listing deployments
 ```
 oc get deployments
 oc get deployment
@@ -364,12 +364,12 @@ oc get deploy
 ```
 Expected output
 <pre>
-(jegan@tektutor.org)$ oc get deploy
+(jegan@tektutor.org)$ <b>oc get deploy</b>
 NAME    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx   0/1     1            0           10s
 </pre>
 
-## Listing Replicasets
+#### Listing Replicasets
 ```
 oc get replicasets
 oc get replicaset
@@ -378,13 +378,13 @@ oc get rs
 
 Expected output
 <pre>
-(jegan@tektutor.org)$ oc get replicasets
+(jegan@tektutor.org)$ <b>oc get replicasets</b>
 NAME               DESIRED   CURRENT   READY   AGE
 nginx-7c658794b9   1         1         0       15s
 </pre>
 
 
-## Listing Pods
+#### Listing Pods
 ```
 oc get pods
 oc get pod
@@ -393,7 +393,7 @@ oc get po
 
 Expected output
 <pre>
-(jegan@tektutor.org)$ oc get pods
+(jegan@tektutor.org)$ <b>oc get pods</b>
 NAME                     READY   STATUS              RESTARTS   AGE
 nginx-7c658794b9-ttfqv   0/1     ContainerCreating   0          16s
 </pre>
