@@ -584,3 +584,17 @@ nginx-679c8f9884-bb895   1/1     Running             0          101s
 nginx-679c8f9884-wm9fn   1/1     Running             0          4s
 nginx-679c8f9884-76vnt   1/1     Running             0          14s
 </pre>
+
+## ⛹️ Lab - Scaling down the nginx deployment
+```
+oc scale deploy/nginx --replicas=1
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc scale deploy/nginx --replicas=1</b>
+deployment.apps/nginx scaled
+(jegan@tektutor.org)$ <b>oc get po -w</b>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-679c8f9884-76vnt   1/1     Running   0          2m43s
+</pre>
