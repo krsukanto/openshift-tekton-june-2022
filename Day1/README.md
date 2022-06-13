@@ -140,7 +140,7 @@
 
 ## RedHat OpenShift commands
 
-### Listing OpenShift cluster nodes
+### ⛹️‍♂️ Lab - Listing OpenShift cluster nodes
 ```
 oc get nodes
 ```
@@ -156,7 +156,7 @@ worker-1.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
 worker-2.ocp.tektutor.org   Ready    worker          2d6h   v1.23.5+3afdacb
 </pre>
 
-### List nodes in wide mode
+### ⛹️‍♂️ Lab - List nodes in wide mode
 ```
 oc get nodes -o wide
 ```
@@ -173,7 +173,7 @@ worker-2.ocp.tektutor.org   Ready    worker          2d7h   v1.23.5+3afdacb   19
 </pre>
 
 
-## Find more details about a node
+## ⛹️‍♂️ Lab - Find more details about a node
 ```
 oc describe node/master-1.ocp.tektutor.org
 ```
