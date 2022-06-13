@@ -312,3 +312,8 @@ Allocated resources:
   hugepages-2Mi      0 (0%)        0 (0%)
 Events:              <none>
 </pre>
+
+## Editing node properties that are mutable
+```
+oc edit node/master-1.ocp.tektutor.org
+```
