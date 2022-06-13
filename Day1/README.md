@@ -423,3 +423,15 @@ Expected output
 NAME                     READY   STATUS              RESTARTS   AGE
 nginx-7c658794b9-ttfqv   0/1     ContainerCreating   0          16s
 </pre>
+
+## ⛹️ Lab - Delete the nginx deployment
+The command below will delete the deployment by name nginx, its corresponding replicaset(s) and the Pod(s)
+```
+oc delete deploy/nginx
+```
+
+Expected output 
+<pre>
+(jegan@tektutor.org)$ <b>oc delete deploy/nginx</b>
+deployment.apps "nginx" deleted
+</pre>
