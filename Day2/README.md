@@ -27,7 +27,7 @@ oc create deploy nginx --image=bitnami/nginx:latest --replicas=3
 oc delete project jegan
 ```
 
-## Creating a NodePort external service
+## ⛹️‍♂️ Lab - Creating a NodePort external service
 ```
 oc new-project jegan
 oc create deploy nginx --image=bitnami/nginx:1.20 --replicas=3
