@@ -94,6 +94,7 @@ Container Engine
 - Tekton CI/CD is nicely integrated and supported by RedHat
 - overall Openshift gets good support from RedHat as it is a paid Enterprise Product 
 - RedHat OpenShift can do all the things that Kubernetes can do + many additional features
+- Prometheus + Graphana metrics dashboard is pre-integrated to present performance metrics of cluster and your applications
 - Command-Line tool used here
    - oc ( client tool used to deploy and manage applications )
    - kubectl ( client tool used to deploy and manage applications )
