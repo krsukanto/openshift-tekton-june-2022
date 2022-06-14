@@ -134,3 +134,65 @@ You can refer this blog for step by step instructions
 https://medium.com/tektutor/using-metallb-loadbalancer-with-bare-metal-openshift-onprem-4230944bfa35
 </pre>
 
+You may to delete the existing service before you actually create a LoadBalancer service for nginx deployment.
+```
+oc delete svc/nginx
+```
+
+Let's create the LoadBalancer service
+```
+oc expose deploy/nginx --type=LoadBalancer --port=8080
+```
+
+Let's describe and see if an external load balancer IP is getting assigned to the service.
+```
+oc describe svc/nginx
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get svc</b>
+NAME    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+nginx   LoadBalancer   172.30.167.250   <pending>     8080:32539/TCP   2s
+</pre>
+
+In the absence of metallb or similar load balancer in our cluster, the above loadbalancer service will not get an external IP.  Hence you need to install the Metallb Operator as an Admin from OpenShift webconsole, allocate an address pool, create a metallb resource so that our nginx lb service will get an external IP as shown below.
+
+<pre>
+(jegan@tektutor.org)$ <b>oc get svc</b>
+NAME    TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE
+nginx   LoadBalancer   172.30.167.250   192.168.122.90   8080:32539/TCP   13m
+</pre>
+
+You may now access the nginx lb service as shown below
+```
+curl http://192.168.122.90:8080
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ curl 192.168.122.90:8080
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+</pre>
