@@ -21,3 +21,30 @@ oc create deploy nginx --image=bitnami/nginx:latest --replicas=3
 13. API Server then triggers event that Pod is scheduled on master-1, worker-2, etc kind of details.
 14. The kubelet on respective nodes, receives this event, kubelet pulls the container images required to
     create the Pod.  Then it creates the Pod on the node where the kubelet is running. Kubelet also send heart-beat like event notification to the API Server via REST call to the update status of all the Pods running in that node.
+
+## Deleting project delets all the resources under the project
+```
+oc delete project jegan
+```
+
+## Creating a NodePort external service
+```
+oc new-project jegan
+oc create deploy nginx --image=bitnami/nginx:1.20 --replicas=3
+```
+
+
+Let's create a NodePort service.  OpenShift has reserved 30000 to 32767 ports on all nodes for NodePort services.
+```
+oc expose deploy/nginx --type=NodePort --port=8080
+```
+
+You may now list the nodeport service as shown below
+```
+oc get svc
+```
+
+You may describe the nodeport service as shown below
+```
+oc describe svc/nginx 
+```
