@@ -5,13 +5,13 @@
 - Docker uses runc Container Runtime
 - https://medium.com/tektutor/container-engine-vs-container-runtime-667a99042f3
 
-Container Runtime
+#### Container Runtime
 - is the tool that manages the containers
 - create, list, stop, start, restart, kill, abort delete
 - Example
   runc, CRI-O(Used in RedHat OpenShift)
 
-Container Engine
+#### Container Engine
 - is a high-level tool that depends on Container Runtime to manage containers
 - it might depend on other tools to manage Container images
 - this is the user-friendly tool that make the end-user life easy to manage images and containers
@@ -102,7 +102,7 @@ Container Engine
 
 ## What is a OpenShift cluster?
 - a collection of many nodes
-- each Node could be a physical server, virtual machine of a cloud ec2 instance running in AWS/Azure, etc.,
+- each Node could be a physical server, virtual machine or a cloud ec2 instance running in AWS/Azure, etc.,
 - nodes are of two types
   1. Master Node
   2. Worker Node
