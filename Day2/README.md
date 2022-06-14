@@ -311,3 +311,140 @@ Expected output
 (jegan@tektutor.org)$ <b>oc logs pod-with-cm</b>
 /usr/lib/jdk8 /usr/share/maven
 </pre>
+
+## ⛹️‍♂️ Lab - Creating secret and accessing the secret values from Pod/Deployment
+First create the secret file mysql-credentials.yml
+<pre>
+apiVersion: v1
+kind: Secret 
+metadata:
+  name: mysql-credentials
+data:
+  username: cm9vdA==
+  password: cm9vdEAxMjM=
+</pre>
+
+The value for username and password are base64 encoded as shown below
+<pre>
+(jegan@tektutor.org)$ <b>echo -n root|base64</b>
+cm9vdA==
+(jegan@tektutor.org)$ <b>echo -n root@123|base64</b>
+cm9vdEAxMjM=
+</pre>
+
+You may now create the secret resource in the cluster
+```
+oc apply -f mysql-credentials.yml
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc apply -f mysql-credentials.yml 
+secret/mysql-credentials created
+</pre>
+
+List the secrets
+```
+oc get secrets
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get secrets</b>
+NAME                                   TYPE                                  DATA   AGE
+builder-dockercfg-2flx6                kubernetes.io/dockercfg               1      138m
+builder-token-lrdwr                    kubernetes.io/service-account-token   4      138m
+builder-token-mxgdw                    kubernetes.io/service-account-token   4      138m
+default-dockercfg-j9pgq                kubernetes.io/dockercfg               1      138m
+default-token-mjh55                    kubernetes.io/service-account-token   4      138m
+default-token-t4c5n                    kubernetes.io/service-account-token   4      138m
+deployer-dockercfg-hr5l9               kubernetes.io/dockercfg               1      138m
+deployer-token-g9mpc                   kubernetes.io/service-account-token   4      138m
+deployer-token-qbq2r                   kubernetes.io/service-account-token   4      138m
+<b>mysql-credentials                      Opaque                                2      33s</b>
+</pre>
+
+Describe the secret see if it reveals the secret values
+```
+oc describe secret mysql-credentials
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc describe secret mysql-credentials</b>
+Name:         mysql-credentials
+Namespace:    jegan
+Labels:       <none>
+Annotations:  <none>
+
+Type:  Opaque
+
+Data
+====
+username:  4 bytes
+password:  8 bytes
+</pre>
+
+Now let's see how to access the secret details from a Pod/Deployment
+
+Let's create a pod manifest file pod-with-secrets.yml
+<pre>
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: pod-with-secrets
+spec:
+  containers:
+    - name: c1
+      image: registry.redhat.io/ubi8/ubi-minimal
+      command:
+        - /bin/bash
+      args:
+        - -c
+        - echo '$(USERNAME) $(PASSWORD)'
+      env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+               name: mysql-credentials 
+               key: username
+        - name: PASSWORD 
+          valueFrom:
+            secretKeyRef:
+               name: mysql-credentials 
+               key: password 
+  restartPolicy: Never 
+</pre>
+
+Let's create the pod in the cluster
+```
+oc apply -f pod-with-secrets.yml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc apply -f pod-with-secrets.yml</b>
+pod/pod-with-secrets created
+</pre>
+
+List the pods
+```
+oc get po
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc get po</b>
+NAME               READY   STATUS      RESTARTS   AGE
+pod-with-cm        0/1     Completed   0          14m
+pod-with-secrets   0/1     Completed   0          79s
+</pre>
+
+You may check the logs to see the output
+```
+oc logs pod-with-secrets
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc logs pod-with-secrets</b>
+root root@123
+</pre>
