@@ -445,6 +445,6 @@ oc logs pod-with-secrets
 
 Expected output
 <pre>
-(jegan@tektutor.org)$ <b>oc logs pod-with-secrets</b>
+(jegan@tektutor.org)$ oc logs pod-with-secrets
 root root@123
 </pre>
