@@ -223,6 +223,28 @@ Describe the configmap
 ```
 oc describe cm my-config-map
 ```
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc describe cm/my-config-map</b>
+Name:         my-config-map
+Namespace:    jegan
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+JDK_HOME:
+----
+/usr/lib/jdk8
+M2_HOME:
+----
+/usr/share/maven
+
+BinaryData
+====
+
+Events:  <none>
+</pre>
 
 Now let's create a Pod manifest file pod-with-cm.yml
 <pre>
