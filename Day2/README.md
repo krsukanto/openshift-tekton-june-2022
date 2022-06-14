@@ -126,3 +126,11 @@ Commercial support is available at
 </body>
 </html>
 </pre>
+
+## Creating LoadBalancer External Service
+
+You can refer this blog for step by step instructions
+<pre>
+https://medium.com/tektutor/using-metallb-loadbalancer-with-bare-metal-openshift-onprem-4230944bfa35
+</pre>
+
