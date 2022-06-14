@@ -201,6 +201,12 @@ Commercial support is available at
 </pre>
 
 ## ⛹️‍♀️ Lab - Creating configmaps and accessing those config details from a Pod/Deployment
+
+You may find this blog useful
+<pre>
+https://medium.com/@jegan_50867/openshift-secrets-and-configmap-223f1815bf8a
+</pre>
+
 First create a configmap file tools-cm.yml
 <pre>
 apiVersion: v1
@@ -313,6 +319,12 @@ Expected output
 </pre>
 
 ## ⛹️‍♂️ Lab - Creating secret and accessing the secret values from Pod/Deployment
+
+You may find this blog useful
+<pre>
+https://medium.com/@jegan_50867/openshift-secrets-and-configmap-223f1815bf8a
+</pre>
+
 First create the secret file mysql-credentials.yml
 <pre>
 apiVersion: v1
