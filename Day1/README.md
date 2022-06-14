@@ -3,6 +3,7 @@
 ## Container Engine vs Container Runtime
 - Docker is a Container Enginer
 - Docker uses runc Container Runtime
+- https://medium.com/tektutor/container-engine-vs-container-runtime-667a99042f3
 
 Container Runtime
 - is the tool that manages the containers
@@ -37,16 +38,14 @@ Container Engine
        - supports Docker, CRI-O, etc
 - Container Orchestration Platform offers the below features
   - High Availabilty for your application 
-  - Self healing platform ( it can both rectify it own issues as well as your application issues )
+  - Self healing platform ( it can both self-heal it own issues as well as your application issues )
   - scaling up/down your application/microservices instances on demand
   - rolling update ( upgrading your application on live environment from one version to other without downtime)
   - exposing service 
     - service represents a group of similar application Pods
     - load-balanced group of similar application Pods
-    - internal/external service(jegan@tektutor.org)$ oc project
-Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
-
-  - inbuilt monitoring facility
+    - internal/external service
+    - inbuilt monitoring facility
     - whenever your application stops responding, it will be replaced with another good working instance
       automatically
 
@@ -58,6 +57,14 @@ Using project "jegan" on server "https://api.ocp.tektutor.org:6443".
   3. AWS ROSA - Managed Red OpenShift from AWS(Amazon)
   4. Azure OpenShift - Managed Red OpenShift from Azure(Microsoft)
 - RedHat's distribution of Kubernetes with many additional features added on top of Kubernetes
+
+## Kubernetes Architecture
+![Kubernetes Architecture](K8sArchitecture.png)
+
+## OpenShift Architecture
+![OpenShift Master Node](master-node.png)
+
+![OpenShift Architecture](OpenShiftArchitecture.png)
 
 ## Difference between Kubernetes andS RedHat OpenShift
 
