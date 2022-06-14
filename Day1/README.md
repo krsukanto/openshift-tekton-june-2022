@@ -78,10 +78,10 @@
 - No webconsole
 - no built-in private container registry, however we can configure Kubernetes to use an externally setup
   container private registry
-- no build-in version control support within Kubernetes
+- no built-in version control support within Kubernetes
 - Tekton CI/CD is not pre-integrated but can be installed to support CI/CD
 - no support, only community support with no SLA
-- Command-Lint tools used here
+- Command-Line tools used in K8s
    - kubectl ( client tool used by all of us to deploy and manage applications )
    - kubeadm ( administrative tool used to setup kubernetes cluster )
    - tkn ( tekton client tool used to create and manage Tekton CI/CD pipeline )
@@ -95,7 +95,7 @@
 - overall Openshift gets good support from RedHat as it is a paid Enterprise Product 
 - RedHat OpenShift can do all the things that Kubernetes can do + many additional features
 - Prometheus + Graphana metrics dashboard is pre-integrated to present performance metrics of cluster and your applications
-- Command-Line tool used here
+- Command-Line tool used in OpenShift
    - oc ( client tool used to deploy and manage applications )
    - kubectl ( client tool used to deploy and manage applications )
    - tkn ( Tekton client tool used to create CI/CD pipline and manage them )
@@ -104,8 +104,8 @@
 - a collection of many nodes
 - each Node could be a physical server, virtual machine or a cloud ec2 instance running in AWS/Azure, etc.,
 - nodes are of two types
-  1. Master Node
-  2. Worker Node
+  1. Master Node ( Only RedHat Enterprise Core OS is supported )
+  2. Worker Node ( Supports RedHat Enterrpise Core OS[Recommended] or RedHat Enterprise Linux )
 
 ## What is RedHat Enterprise Core OS(RHCOS)?
 - RedHat acquired a company called CoreOS, who developed rkt container runtime and optimized OS for containers
@@ -117,10 +117,10 @@
 - it follows many container best practices, it enforces best practice by imposing certain restrictions on our containerized applications
 - Restrictions imposed by CoreOS
   - certain ports like 80 is reserved
-  - our applications aren't supposed used Port 80
+  - our applications aren't supposed to use Port 80
   - containers can only access files and folder within their home directory
   - normally applictions are allowed to run only as non-admin users unlike Kubernetes(where the applications can be executed as admin/non-admin)
-  - /var, /etc /, /root folders are restricted. Only super users will have access to these folder
+  - /var, /etc /, /root folders are restricted. Only super users will have access to these folders
   - we must avoid using container images that doesn't adhere to the above best practices
 
 ## What would happen if you have installed RHEL on RedHat OpenShift worker nodes
@@ -164,7 +164,7 @@ docker exec -it nginx /bin/sh
 hostname -i
 ```
 
-The expectation is, what IP address is assigned to the nginx_pause container, it will reflect within the nginx container as well, as they share the network stack, hence they share the IP address.  These two containers are collectively called as a Pod.
+The expectation is, whatever IP address is assigned to the nginx_pause container, it will reflect within the nginx container as well, as they share the network stack.  These two containers are collectively called as a Pod.
 
 #### API Server
 - this component implements the Orchestration features as REST API
@@ -180,7 +180,7 @@ The expectation is, what IP address is assigned to the nginx_pause container, it
 #### Scheduler
 - identifies a healthy node to deploy a Pod
 - whenever new Deployment are created, it is the responsibility of the Scheduler to allocate a node to the Pod
-- Scheduler also geta an update whenever scale up/down happens
+- Scheduler also gets an update whenever scale up/down happens
 - Scheduler also gets an update when rolling update happens
 - Scheduler receives updates from API Server in the form of events
 
@@ -196,7 +196,7 @@ The expectation is, what IP address is assigned to the nginx_pause container, it
 - Controllers are the one which adds monitoring capability to the OpenShift cluster
 - Controllers always compares the Desired state with the Current State and when there is deviation it acts to ensure
   the Desired State matches the Acutal Current State
-- Different Controller has differnt functionalities
+- Different Controller has different functionalities
 - For example
   - Deployment Controller is the one which manages ReplicaSet ( an entry in the etcd database )
   - Deployment Controller is the one which consumes Deployment and creates ReplicaSet as per the definition in Deployment
@@ -205,8 +205,9 @@ The expectation is, what IP address is assigned to the nginx_pause container, it
 
 ## RedHat OpenShift Worker Node
 - this is where user applications will be running
-- Worker Node Operating can be either RHEL(RedHat Enterprise Linux) or RHCOS(RedHat Enterprise Core OS )
-- RedHat recommned using RHCOS on all nodes 
+- Worker Node's Operating System can be either RHEL(RedHat Enterprise Linux) or RHCOS(RedHat Enterprise Core OS )
+- RedHat recommneds using RHCOS on all nodes 
+- Our lab setup uses RedHat Enterprise Core OS on all nodes (master-1,master-2,master-3, worker-1 and worker-2)
 
 ## Common components that run on both Master and Worker Nodes in RedHat OpenShift
 - kubelet Openshift container Agent 
@@ -214,6 +215,10 @@ The expectation is, what IP address is assigned to the nginx_pause container, it
 - kubelet communicates with the CRI-O container runtime to manage Pods
 - kube-proxy - load-balancing for service
 - core-dns - supports service discovery
+- in Kubernetes for Pod-to-Pod communication accross nodes, we need to install Kubernetes third-party network add-ons
+  (like Flannel, Canal, Calico, Weave, etc.,)
+- Kubernetes only supports using one of the network adds-ons at any point but OpenShift allows using many network add-ons
+  within the same cluster using multus interface
 - multus - network interface that allows to communicate with differents type of network add-ons like ( Flannel, Canal, Calico, Weave, etc.,)
 
 ### RedHat OpenShift Resources
