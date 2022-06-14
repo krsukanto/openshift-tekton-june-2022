@@ -196,3 +196,75 @@ Commercial support is available at
 </body>
 </html>
 </pre>
+
+## ⛹️‍♀️ Lab - Creating configmaps and accessing those config details from a Pod/Deployment
+First create a configmap file tools-cm.yml
+<pre>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config-map
+data:
+  JDK_HOME: /usr/lib/jdk8
+  M2_HOME: /usr/share/maven
+</pre>
+
+Create the configmap in the cluster
+```
+oc apply -f tools-cm.yml
+```
+
+List the configmaps
+```
+oc get cm
+```
+
+Describe the configmap
+```
+oc describe cm my-config-map
+```
+
+Now let's create a Pod manifest file pod-with-cm.yml
+<pre>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-cm
+spec:
+  containers:
+    - name: c1
+      image: registry.redhat.io/ubi8/ubi-minimal      
+      command:
+        - /bin/bash
+      args:
+        - -c
+        - echo '$(JDK_PATH) $(MAVEN_PATH)'
+      env:
+        - name: JDK_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: my-config-map
+              key: JDK_HOME 
+        - name: MAVEN_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: my-config-map
+              key: M2_HOME 
+  restartPolicy: Never
+</pre>
+
+Let's create the pod in the cluster
+```
+oc apply -f pod-with-cm.yml
+```
+
+Finally you can check the logs of the pod-with-cm pod
+```
+oc logs pod-with-cm
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc logs pod-with-cm</b>
+/usr/lib/jdk8 /usr/share/maven
+</pre>
