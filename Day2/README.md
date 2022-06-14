@@ -213,11 +213,19 @@ Create the configmap in the cluster
 ```
 oc apply -f tools-cm.yml
 ```
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc apply -f tools-cm.yml 
+configmap/my-config-map created
+</pre>
 
 List the configmaps
 ```
 oc get cm
 ```
+Expected output
+<pre>
+</pre>
 
 Describe the configmap
 ```
@@ -279,6 +287,11 @@ Let's create the pod in the cluster
 ```
 oc apply -f pod-with-cm.yml
 ```
+Expected output
+<pre>
+jegan@tektutor.org)$ <b>oc apply -f pod-cm.yml</b>
+pod/pod-with-cm created
+</pre>
 
 Finally you can check the logs of the pod-with-cm pod
 ```
