@@ -178,7 +178,8 @@ Expected output
     body {
         width: 35em;
         margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
+        font-family: Tahoma, Verdana, Ar(jegan@tektutor.org)$ 
+ial, sans-serif;
     }
 </style>
 </head>
@@ -217,7 +218,7 @@ oc apply -f tools-cm.yml
 ```
 Expected output
 <pre>
-(jegan@tektutor.org)$ <b<oc apply -f tools-cm.yml</b>
+(jegan@tektutor.org)$ <b>oc apply -f tools-cm.yml</b>
 configmap/my-config-map created
 </pre>
 
