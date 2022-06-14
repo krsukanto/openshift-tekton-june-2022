@@ -68,7 +68,7 @@ Container Engine
 
 ## Difference between Kubernetes andS RedHat OpenShift
 
-### Kubernetes
+### Kubernetes (K8s)
 - mainly command-line
 - supports RBAC(Role Based Access Control) but there is no inbuilt user management
 - there is a basic version of Webconsole(Dashboard, but generally not used in Production)
