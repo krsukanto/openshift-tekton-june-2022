@@ -203,13 +203,6 @@ The expectation is, what IP address is assigned to the nginx_pause container, it
   - ReplicaSet Controller is the one which manages the Pods( an entry in the etcd database )
   - ReplicaSet Controller creates the Pod instances as per the Desired count in the ReplicaSet
 
-
-
-
-
-
-
-
 ## RedHat OpenShift Worker Node
 - this is where user applications will be running
 - Worker Node Operating can be either RHEL(RedHat Enterprise Linux) or RHCOS(RedHat Enterprise Core OS )
