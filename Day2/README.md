@@ -185,7 +185,9 @@ Expected output
 <body>
 <h1>Welcome to nginx!</h1>
 <p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.</p>
+working. Further configuration is required.</p>jegan@tektutor.org)$ <b>oc apply -f pod-cm.yml</b>
+pod/pod-with-cm created
+
 
 <p>For online documentation and support please refer to
 <a href="http://nginx.org/">nginx.org</a>.<br/>
@@ -215,7 +217,7 @@ oc apply -f tools-cm.yml
 ```
 Expected output
 <pre>
-(jegan@tektutor.org)$ oc apply -f tools-cm.yml 
+(jegan@tektutor.org)$ <b<oc apply -f tools-cm.yml</b>
 configmap/my-config-map created
 </pre>
 
@@ -225,6 +227,11 @@ oc get cm
 ```
 Expected output
 <pre>
+(jegan@tektutor.org)$ <b>oc get cm</b>
+NAME                       DATA   AGE
+kube-root-ca.crt           1      132m
+<b>my-config-map              2      115s</b>
+openshift-service-ca.crt   1      132m
 </pre>
 
 Describe the configmap
