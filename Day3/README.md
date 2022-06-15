@@ -374,3 +374,9 @@ sudo pip install ansible-runner-http
 ```
 sudo pip install openshift
 ```
+## ⛹️‍♀️ Lab - Let's develop a simple Custom OpenShift operator
+
+Inititialze the ansible operator project
+```
+operator-sdk init --plugins=ansible --domain=tektutor.org
+```
