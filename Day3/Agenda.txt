@@ -1,0 +1,13 @@
+Today's Agenda
+++++++++++++++
+1. Setting up NFS Server on CentOS 7.x
+2. Persistent Volume and Persistent Volume Claims
+3. Node Affinity
+4. Operators
+    - What is an Operator?
+    - What is a Custom Resource?
+    - What are Custom Resource Definitions(CRDs)?
+    - Operator SDKs
+    - Installing Operator SDK
+    - Developing a simple operator using Operator SDK and Ansible
+    - Deploying our custom operator and scaling it up
