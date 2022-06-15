@@ -6,7 +6,7 @@ Demonstrates how pod-to-pod communication in a multi-pod applications.
 
 Wordpress is a Content Management Software used to setup a blog website.  Wordpress dependes on database either mariadb or mysql.
 
-We will be create two deployments, one for mysql and other wordpress.
+We will be creating two deployments, one for mysql and other for wordpress.
 
 Let's first create the mysql deployment mysql-deploy.yml
 <pre>
