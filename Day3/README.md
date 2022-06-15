@@ -310,4 +310,16 @@ Expected output
 go version go1.18.2 linux/amd64
 </pre>
 
+#### Installing OpenShift Operator SDK
 ```
+wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/operator-sdk/4.10.12/operator-sdk-v1.16.0-ocp-linux-x86_64.tar.gz
+tar xvfz operator-sdk-v1.16.0-ocp-linux-x86_64.tar.gz
+su -
+mv ./operator-sdk /usr/local/bin/operator-sdk
+```
+
+Let's verify if operator-sdk is in path
+```
+operators-sdk version
+```
+
