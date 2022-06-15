@@ -31,7 +31,10 @@ spec:
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: root@123
+          valueFrom:
+             secretKeyRef:
+               name: mysql-credentials
+               key: password
 </pre>
 
 Let's create the mysql deployment
@@ -89,15 +92,64 @@ spec:
         name: wordpress
         env:
           - name: WORDPRESS_DATABASE_USER
-            value: root
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: username
+
           - name: WORDPRESS_DATABASE_PASSWORD 
-            value: root@123
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: password 
+
           - name: WORDPRESS_DATABASE_HOST
-            value: mysql
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_host
+
           - name: WORDPRESS_DATABASE_PORT
-            value: "3306"
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_port
+
           - name: WORDPRESS_DATABASE_NAME 
-            value: bitnami_wordpress
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_name
+
+          - name: MYSQL_CLIENT_FLAVOR
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_client_flavor
+
+          - name: MYSQL_CLIENT_DATABASE_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_host
+
+          - name: MYSQL_CLIENT_DATABASE_ROOT_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: username
+
+          - name: MYSQL_CLIENT_DATABASE_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: password
+
+          - name: MYSQL_CLIENT_CREATE_DATABASE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_name
 </pre>
 
 Let's create the wordpress deployment in the cluster with the above manifest file
