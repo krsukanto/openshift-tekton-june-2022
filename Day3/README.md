@@ -343,3 +343,17 @@ docker version
 docker images
 ```
 
+#### Installing Ansible in CentOS 7.x
+```
+python3 -m pip install --upgrade pip
+```
+
+Now you can try installing ansible
+```
+pip3 install ansible
+```
+
+Check the verison of ansible
+```
+ansible --verison
+```
