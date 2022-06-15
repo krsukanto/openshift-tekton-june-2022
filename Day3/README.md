@@ -347,12 +347,12 @@ docker images
 #### Install Ansible in CentOS 7.x
 ```
 sudo yum install -y python3
-python3 -m pip install --upgrade pip
+sudo python3 -m pip install --upgrade pip
 ```
 
 Now you can try installing ansible
 ```
-pip3 install ansible
+sudo pip3 install ansible
 ```
 
 Check the verison of ansible
@@ -362,15 +362,15 @@ ansible --version
 
 #### Install Ansible Runner
 ```
-pip install ansible-runner
+sudo pip install ansible-runner
 ```
 
 #### Install Ansible Http Event Emitter
 ```
-pip install ansible-runner-http
+sudo pip install ansible-runner-http
 ```
 
 #### Install OpenShift python client
 ```
-pip install openshift
+sudo pip install openshift
 ```
