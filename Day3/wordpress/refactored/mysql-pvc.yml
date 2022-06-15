@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc-jegan 
+  namespace: jegan
+  labels:
+    name: jegan
+spec:
+  selector:
+    matchLabels:
+      name: jegan
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 250Mi 
