@@ -4,7 +4,7 @@
 
 Demonstrates how pod-to-pod communication in a multi-pod applications.
 
-Wordpress is a Content Management Software used to setup a blog website.  Wordpress dependes on database either mariadb or mysql.
+Wordpress is a Content Management Software used to setup a blog website.  Wordpress depends on database either mariadb or mysql.
 
 We will be creating two deployments, one for mysql and other for wordpress.
 
