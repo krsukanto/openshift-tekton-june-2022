@@ -6,6 +6,40 @@ Demonstrates how pod-to-pod communication in a multi-pod applications.
 
 Wordpress is a Content Management Software used to setup a blog website.  Wordpress depends on database either mariadb or mysql.
 
+Let's capture all the non-sensitive config details in confimap wordpress-cm.yml as shown below
+<pre>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-cm
+data:
+  database_host: mysql
+  database_port: "3306"
+  database_name: bitnami_wordpress
+  database_client_flavor: mysql
+</pre>
+
+Let's create the above configmap in the cluster
+```
+oc apply -f wordpress-cm.yml
+```
+
+Let's capture all the sensitive login credential details in secret mysql-credentials.yml
+<pre>
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-credentials
+data:
+  username: cm9vdA==
+  password: cm9vdEAxMjM=
+</pre>
+
+Let's create the above secret in the cluster
+```
+oc apply -f mysql-credentials.yml
+```
+
 We will be creating two deployments, one for mysql and other for wordpress.
 
 Let's first create the mysql deployment mysql-deploy.yml
