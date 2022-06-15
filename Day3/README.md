@@ -422,3 +422,32 @@ metadata:
 spec:
   size: 1
 </pre>
+
+
+#### Login to redhat container registry with your redhat account credentials
+```
+docker login registry.redhat.io
+```
+When it prompts for username, type your redhat registered email and when it prompts for password, type your redhat account password.
+
+If all goes well, you will be seeing Login Succeeded message.
+
+### Update the requirements.yml file as shown below
+<pre>
+---
+collections:
+  - name: community.kubernetes
+    version: "1.2.1"
+  - name: operator_sdk.util
+    version: "0.4.0"
+  - name: kubernetes.core
+    version: "2.2.3"
+</pre>
+
+#### Build the Operator image
+```
+make docker-build IMG=openshiftindia/nginx-openshift-operator:1.0
+```
+
+
+
