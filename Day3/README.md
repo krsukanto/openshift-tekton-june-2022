@@ -364,3 +364,13 @@ ansible --version
 ```
 pip install ansible-runner
 ```
+
+#### Install Ansible Http Event Emitter
+```
+pip install ansible-runner-http
+```
+
+#### Install OpenShift python client
+```
+pip install openshift
+```
