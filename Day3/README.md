@@ -449,5 +449,49 @@ collections:
 make docker-build IMG=openshiftindia/nginx-openshift-operator:1.0
 ```
 
+#### Login to your Docker Hub account
+```
+docker login docker.io
+```
+When it prompts for username and password, provide your docker hub logiin credentials.
 
+#### Push your operator image to docker hub
+```
+make docker-push IMG=tektutor/nginx-operator:1.0
+```
 
+#### Deploy our nginx-operator into the cluster
+```
+make deploy IMG=tektutor/nginx-operator:1.0
+```
+
+#### Check your deployment in the cluster
+```
+oc get deploy -n nginx-operator-system
+```
+
+#### Now you may create nginx custom resource
+
+Create a file nginx-crd.yml with the below code
+
+<pre>
+apiVersion: training.tektutor.org/v1
+kind: Nginx
+metadata:
+  name: nginx-sample
+spec:
+  size: 1
+</pre>
+
+```
+oc apply -f nginx-crd.yml
+```
+
+In sometime you should see a deployment with a single pod created automatically.
+
+You may scale up the above by increasing the size from 1 to maybe 5.  This will end up creating 5 pods.
+
+To clean you can delete
+```
+oc delete -f nginx-crd.yml
+```
