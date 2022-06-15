@@ -385,3 +385,30 @@ Creating an API
 ```
 operator-sdk create api --group training --version v1 --kind Nginx --generate-role
 ```
+
+Edit roles/nginx/tasks/main.yml and add the below code
+<pre>
+- name: start nginx
+  kubernetes.core.k8s:
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: '{{ ansible_operator_meta.name }}-nginx'
+        namespace: '{{ ansible_operator_meta.namespace }}'
+      spec:
+        replicas: "{{size}}"
+        selector:
+          matchLabels:
+            app: nginx
+        template:
+          metadata:
+            labels:
+              app: nginx
+          spec:
+            containers:
+            - name: nginx
+              image: bitnami/nginx:latest
+              ports:
+                containerPort: 8080
+</pre>
