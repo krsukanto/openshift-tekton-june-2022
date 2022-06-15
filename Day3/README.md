@@ -1,6 +1,6 @@
 # Day3
 
-## Deploying a multi-pod application
+## ⛹️‍♂️ Lab - Deploying a multi-pod application
 
 Demonstrates how pod-to-pod communication in a multi-pod applications.
 
