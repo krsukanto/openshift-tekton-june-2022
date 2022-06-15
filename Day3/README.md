@@ -314,12 +314,32 @@ go version go1.18.2 linux/amd64
 ```
 wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/operator-sdk/4.10.12/operator-sdk-v1.16.0-ocp-linux-x86_64.tar.gz
 tar xvfz operator-sdk-v1.16.0-ocp-linux-x86_64.tar.gz
-su -
-mv ./operator-sdk /usr/local/bin/operator-sdk
+sudo mv ./operator-sdk /usr/local/bin/operator-sdk
 ```
 
 Let's verify if operator-sdk is in path
 ```
 operators-sdk version
+```
+
+#### Install Docker Community Edition
+```
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin 
+```
+
+Start the Docker service
+```
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+Check the docker version and see if you can list the images
+```
+docker version
+docker images
 ```
 
