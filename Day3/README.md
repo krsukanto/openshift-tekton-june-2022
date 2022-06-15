@@ -319,7 +319,7 @@ sudo mv ./operator-sdk /usr/local/bin/operator-sdk
 
 Let's verify if operator-sdk is in path
 ```
-operators-sdk version
+operator-sdk version
 ```
 
 #### Install Docker Community Edition
