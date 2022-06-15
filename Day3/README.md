@@ -243,3 +243,71 @@ oc apply -f wordpress-route.yml
 ```
 
 You may access the wordpress route from the RedHat OpenShift webconsole => Developer context => topology.
+
+## HELM 
+- package manager for Kubernetes/OpenShift
+- the packaged applications are called charts
+- you can install/uninstall/update/ugrage applications as charts
+- comes with opensource web portal, which has a whole bunch third-party opensource charts
+
+## In a manifest file
+- we can many deployment, many service, routes, configmap and secrets resource creation in a single yaml file
+
+## RedHat Openshift
+- template file
+- template file combines many resource definintions in a single yaml file
+
+## What is Operator?
+- is a way you can package your application and install it a Kubernetes/OpenShift cluster
+- let's you extend the Kubernetes/OpenShift API by adding your own Custom Resource and Custom Controllers
+- Custom Resources + Custom Controllers
+
+## Operator Hub
+- is an opensource web portal that a collection of many opensource operators that package many useful applications
+  in a format they can readily deployed in Kubernetes/OpenShift
+
+## What is Operator Lifecycle Manager ( OLM )?
+- OLM is itself an Operator
+- OLM simplies how operators can be installed/uninstalled/upgraded in OpenShift
+- OLM integrates Operator Hub portal within OpenShift webconsole
+
+## Operator Software Development Kits(SDK)
+- this helps in developing your own custom Operators for your applications
+- Operators can be developed natively in Go programming language but there are other options
+- Ansible Operator let's us develop custom operators using Ansible 
+- Operator SDK
+  - can be used to develop operators using plain Go
+  - in addition it also let's us develop operators by automating things in Ansible
+
+## Setting up our Operator Development Environment
+
+#### Installing Go programming Language
+
+The official go language binary can be download over here https://go.dev/dl
+
+```
+wget https://go.dev/dl/go1.18.3.linux-amd64.tar.gz
+tar xvfz go1.18.3.linux-amd64.tar.gz
+pwd
+```
+The path printed above can be exported in your ~/.bashrc file as shown below
+```
+export PATH=/usr/local/bin/go/bin:$PATH
+```
+To run the .bashrc 
+```
+source ~/.bashrc
+```
+
+You can if go language is in your path
+```
+go version
+```
+
+Expected output
+<pre>
+[/home/user01@tektutor operator-sdk]# go version
+go version go1.18.2 linux/amd64
+</pre>
+
+```
