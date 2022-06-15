@@ -380,3 +380,8 @@ Inititialze the ansible operator project
 ```
 operator-sdk init --plugins=ansible --domain=tektutor.org
 ```
+
+Creating an API
+```
+operator-sdk create api --group training --version v1 --kind Nginx --generator-role
+```
