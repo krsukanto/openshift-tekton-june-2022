@@ -6,6 +6,40 @@ Demonstrates how pod-to-pod communication in a multi-pod applications.
 
 Wordpress is a Content Management Software used to setup a blog website.  Wordpress depends on database either mariadb or mysql.
 
+Let's capture all the non-sensitive config details in confimap wordpress-cm.yml as shown below
+<pre>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-cm
+data:
+  database_host: mysql
+  database_port: "3306"
+  database_name: bitnami_wordpress
+  database_client_flavor: mysql
+</pre>
+
+Let's create the above configmap in the cluster
+```
+oc apply -f wordpress-cm.yml
+```
+
+Let's capture all the sensitive login credential details in secret mysql-credentials.yml
+<pre>
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-credentials
+data:
+  username: cm9vdA==
+  password: cm9vdEAxMjM=
+</pre>
+
+Let's create the above secret in the cluster
+```
+oc apply -f mysql-credentials.yml
+```
+
 We will be creating two deployments, one for mysql and other for wordpress.
 
 Let's first create the mysql deployment mysql-deploy.yml
@@ -31,7 +65,10 @@ spec:
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: root@123
+          valueFrom:
+             secretKeyRef:
+               name: mysql-credentials
+               key: password
 </pre>
 
 Let's create the mysql deployment
@@ -89,15 +126,64 @@ spec:
         name: wordpress
         env:
           - name: WORDPRESS_DATABASE_USER
-            value: root
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: username
+
           - name: WORDPRESS_DATABASE_PASSWORD 
-            value: root@123
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: password 
+
           - name: WORDPRESS_DATABASE_HOST
-            value: mysql
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_host
+
           - name: WORDPRESS_DATABASE_PORT
-            value: "3306"
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_port
+
           - name: WORDPRESS_DATABASE_NAME 
-            value: bitnami_wordpress
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_name
+
+          - name: MYSQL_CLIENT_FLAVOR
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_client_flavor
+
+          - name: MYSQL_CLIENT_DATABASE_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_host
+
+          - name: MYSQL_CLIENT_DATABASE_ROOT_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: username
+
+          - name: MYSQL_CLIENT_DATABASE_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credentials
+                key: password
+
+          - name: MYSQL_CLIENT_CREATE_DATABASE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-cm
+                key: database_name
 </pre>
 
 Let's create the wordpress deployment in the cluster with the above manifest file
@@ -155,3 +241,5 @@ Let's create the route as shown below
 ```
 oc apply -f wordpress-route.yml
 ```
+
+You may access the wordpress route from the RedHat OpenShift webconsole => Developer context => topology.
