@@ -186,7 +186,8 @@ spec:
                 key: database_name
 </pre>
 
-Let's create the wordpress deployment in the cluster with the above manifest file
+Let's create the wordpress deployment in the cluster python3 -m pip install --upgrade pip
+with the above manifest file
 ```
 oc apply -f wordpress-deploy.yml
 ```
@@ -345,6 +346,7 @@ docker images
 
 #### Installing Ansible in CentOS 7.x
 ```
+sudo yum install -y python3
 python3 -m pip install --upgrade pip
 ```
 
@@ -355,5 +357,5 @@ pip3 install ansible
 
 Check the verison of ansible
 ```
-ansible --verison
+ansible --version
 ```
