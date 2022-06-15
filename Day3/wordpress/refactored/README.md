@@ -2,6 +2,8 @@
 
 Kindly ensure the mysql-pv and mysql-pvc is updated with your name wherever you see 'jegan'.
 
+Also the mysql-deploy.yml file shall be updated to use your mysql-pvc-<your-name> before proceeding.
+
 ```
 oc apply -f wordpress-cm.yml
 oc apply -f mysql-credentials.yml
