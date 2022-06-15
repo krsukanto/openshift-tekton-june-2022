@@ -412,3 +412,13 @@ Edit roles/nginx/tasks/main.yml and add the below code
               ports:
                 containerPort: 8080
 </pre>
+
+Edit the config/samples/training_v1_nginx.yaml and update it as shown below
+<pre>
+apiVersion: training.tektutor.org/v1
+kind: Nginx
+metadata:
+  name: nginx-sample
+spec:
+  size: 1
+</pre>
