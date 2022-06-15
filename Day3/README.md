@@ -241,3 +241,5 @@ Let's create the route as shown below
 ```
 oc apply -f wordpress-route.yml
 ```
+
+You may access the wordpress route from the RedHat OpenShift webconsole => Developer context => topology.
