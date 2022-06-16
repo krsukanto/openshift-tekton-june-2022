@@ -285,3 +285,21 @@ Check the output
 (jegan@tektutor.org)$ <b>tkn taskrun logs --last</b>
 [echo] Hello TekTon Task !
 </pre>
+
+Rerun the task and this type you type your custom message
+<pre>
+(jegan@tektutor.org)$ <b>tkn taskrun logs --last</b>
+[echo] Hello TekTon Task !
+
+? Value for param `message` of type `string`? (Default is `Hello TekTon Task !`) My Custom Message
+TaskRun started: hello-task-with-params-run-tqbvm
+
+In order to track the TaskRun progress run:
+tkn taskrun logs hello-task-with-params-run-tqbvm -f -n jegan
+</pre>
+
+Check the output
+<pre>
+(jegan@tektutor.org)$ <b>tkn taskrun logs --last -f</b>
+[echo] My Custom Message
+</pre>
