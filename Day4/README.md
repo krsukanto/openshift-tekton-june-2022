@@ -118,5 +118,16 @@ oc apply -f lab-1.yml
 
 Expected output
 <pre>
+(jegan@tektutor.org)$ oc apply -f lab-1.yml 
+task.tekton.dev/hello created
+</pre>
 
+You can list the tasks either using oc or tkn client tools as shown below
+<pre>
+(jegan@tektutor.org)$ <b>oc get tasks</b>
+NAME    AGE
+hello   6s
+(jegan@tektutor.org)$ <b>tkn tasks list</b>
+NAME    DESCRIPTION   AGE
+hello                 15 seconds ago
 </pre>
