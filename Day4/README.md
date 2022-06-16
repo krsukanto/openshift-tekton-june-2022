@@ -181,5 +181,19 @@ oc apply -f lab-2.yml
 
 Expected output
 <pre>
+(jegan@tektutor.org)$ <b>oc apply -f lab-2.yml</b>
+task.tekton.dev/hello-task-with-multiple-steps created
 </pre>
 
+Listing the task
+```
+tkn task list
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>tkn task list</b>
+NAME                             DESCRIPTION   AGE
+hello                                          43 minutes ago
+<b>hello-task-with-multiple-steps                 51 seconds ago</b>
+</pre>
