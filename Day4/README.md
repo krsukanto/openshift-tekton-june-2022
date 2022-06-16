@@ -6,7 +6,36 @@
 - You can add new Custom Resource by creating a CRD yaml file
 - To manage the Custom Resource, we also need to develop a Custom Controller
 - Custom Controllers can be developed in Go, Java or any programming language
-
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: hello-task-with-multiple-steps-and-params-
+spec:
+  params:
+  - name: msg1
+    value: "Taskrun value1"
+  - name: msg2
+    value: "Taskrun value2"
+  taskSpec:
+    params:
+    - name: msg1
+      type: string
+    - name: msg2
+      type: string
+    steps:
+    - name: step1
+      image: ubuntu
+      script: | 
+        echo $(params.msg1)
+        echo $(params.msg2)
+    - name: step2
+      image: ubuntu
+      command:  
+        - echo
+      args:
+        - $(params.msg1)
+        - $(params.msg2)
+~                       
 ## Controllers
 - is an application that runs in a Pod just any any other normal microservice or regualar application
 - the only difference, the controllers might require some low-level/cluster level permissions to monitor when New Custom Resources created under any namespace
@@ -302,4 +331,60 @@ Check the output
 <pre>
 (jegan@tektutor.org)$ <b>tkn taskrun logs --last -f</b>
 [echo] My Custom Message
+</pre>
+
+## ⛹️‍♂️ Lab - TaskRun with Task inline defined with params
+
+Create a file lab-4.yml
+<pre>
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: hello-task-with-multiple-steps-and-params-
+spec:
+  params:
+  - name: msg1
+    value: "Taskrun value1"
+  - name: msg2
+    value: "Taskrun value2"
+  taskSpec:
+    params:
+    - name: msg1
+      type: string
+    - name: msg2
+      type: string
+    steps:
+    - name: step1
+      image: ubuntu
+      script: | 
+        echo $(params.msg1)
+        echo $(params.msg2)
+    - name: step2
+      image: ubuntu
+      command:  
+        - echo
+      args:
+        - $(params.msg1)
+        - $(params.msg2)
+</pre>
+
+Create the taskrun as shown below
+```
+oc create -f lab-4.yml
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create -f lab-4.yml</b>
+taskrun.tekton.dev/hello-task-with-multiple-steps-and-params-x4h7z created
+</pre>
+
+Check the logs
+<pre>
+(jegan@tektutor.org)$ <b>tkn taskrun logs --last</b>
+[step1] + echo Taskrun value1
+[step1] + echo Taskrun value2
+[step1] Taskrun value1
+[step1] Taskrun value2
+
+[step2] Taskrun value1 Taskrun value2
 </pre>
