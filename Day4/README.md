@@ -92,3 +92,31 @@
   - Task4 - Static code Analysis using SonarQube
       Input  => the compiled binaries from Task2
       Output => Sonar Report 
+
+## Creating your very first Tekton Task
+
+create a file lab-1.yml with the below code
+```
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: hello
+spec:
+  steps:
+  - name: echo
+    image: ubuntu
+    command:
+      - echo
+    args:
+      - "Hello World !"
+```
+
+You can then run the below command
+```
+oc apply -f lab-1.yml
+```
+
+Expected output
+<pre>
+
+</pre>
