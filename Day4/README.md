@@ -388,3 +388,61 @@ Check the logs
 
 [step2] Taskrun value1 Taskrun value2
 </pre>
+
+### Task with configmap
+
+Create a file named taskrun-with-cm.yml
+
+<pre>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tools-path-cm
+data:
+  jdk_home: /usr/lib/jdk11
+  m2_home: /usr/share/maven
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: taskrun-with-confimap-
+spec:
+  workspaces:
+  - name: env-settings
+    configMap:
+      name: tools-path-cm
+      items:
+      - key: jdk_home
+        path: jdk_home.txt
+      - key: m2_home
+        path: m2_home.txt
+  taskSpec:
+    steps:
+    - name: read-tools-path-from-cm
+      image: ubuntu
+      script: |
+        cat $(workspaces.env-settings.path)/jdk_home.txt
+        cat $(workspaces.env-settings.path)/m2_home.txt
+    workspaces:
+    - name: env-settings
+      mountPath: /my/configmap
+</pre>
+
+Create the taskrun as shown below
+```
+oc create -f taskrun-with-cm.yml
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create -f task-with-cm.yml</b>
+configmap/tools-path-cm created
+taskrun.tekton.dev/taskrun-with-confimap-z2svb created
+</pre>
+
+Check the output logs
+<pre>
+(jegan@tektutor.org)$ <b>tkn taskrun logs -f --last</b>
+[read-tools-path-from-cm] + cat /my/configmap/jdk_home.txt
+[read-tools-path-from-cm] /usr/lib/jdk11+ cat /my/configmap/m2_home.txt
+[read-tools-path-from-cm] /usr/share/maven
+</pre>
