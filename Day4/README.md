@@ -93,7 +93,7 @@
       Input  => the compiled binaries from Task2
       Output => Sonar Report 
 
-## Creating your very first Tekton Task
+## ⛹️‍♀️ Lab - Creating your very first Tekton Task
 
 create a file lab-1.yml with the below code
 ```
@@ -143,3 +143,43 @@ tkn taskrun logs hello-run-mlqmk -f -n jegan
 
 [echo] Hello World !
 </pre>
+
+## ⛹️‍♂️ Lab - Creating a Tekton Task with multiple steps
+
+lab-2.yml
+<pre>
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: hello-task-with-multiple-steps
+spec:
+  steps:
+  - name: step-1 
+    image: ubuntu
+    command:
+      - echo
+    args:
+      - "Step 1 => Hello World !"
+  - name: step-2 
+    image: ubuntu
+    command:
+      - echo
+    args:
+      - "Step 2 => Hello World !"
+  - name: step-3 
+    image: ubuntu
+    command:
+      - echo
+    args:
+      - "Step 3 => Hello World !"
+</pre>
+
+Create the task in the cluster
+```
+oc apply -f lab-2.yml
+```
+
+Expected output
+<pre>
+</pre>
+
