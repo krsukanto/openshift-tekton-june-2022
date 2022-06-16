@@ -220,7 +220,7 @@ Checking the output of the taskrun execution
 [step-2] Step 2 => Hello World !
 
 [step-3] Step 3 => Hello World !
-</per>
+</pre>
 
 
 ## Passing parameters to Task
