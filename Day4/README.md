@@ -131,3 +131,15 @@ hello   6s
 NAME    DESCRIPTION   AGE
 hello                 15 seconds ago
 </pre>
+
+You can run the task as shown below
+<pre>
+(jegan@tektutor.org)$ <b>tkn task start hello</b>
+TaskRun started: hello-run-mlqmk
+
+In order to track the TaskRun progress run:
+tkn taskrun logs hello-run-mlqmk -f -n jegan
+(jegan@tektutor.org)$ <b>tkn taskrun logs hello-run-mlqmk -f -n jegan</b>
+
+[echo] Hello World !
+</pre>
