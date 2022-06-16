@@ -221,3 +221,67 @@ Checking the output of the taskrun execution
 
 [step-3] Step 3 => Hello World !
 </per>
+
+
+## Passing parameters to Task
+
+Create a file name lab-3.yml with the below code
+<pre>
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: hello-task-with-params
+spec:
+  params:
+  - name: message
+    type: string
+    description: this is an optional describe about the parameter
+    default: "Hello TekTon Task !"
+  steps:
+  - name: echo
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - $(params.message)
+</pre>
+
+Let's create the task in the cluster
+```
+oc apply -f lab-3.yml
+```
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc apply -f lab-3.yml</b>
+task.tekton.dev/hello-task-with-params created
+</pre>
+
+List the tasks
+```
+tkn tasks list
+```
+
+Execute the tasks
+<pre>
+(jegan@tektutor.org)$ <b>tkn task start hello-task-with-params</b>
+? Value for param `message` of type `string`? (Default is `Hello TekTon Task !`) Hello TekTon Task !
+TaskRun started: hello-task-with-params-run-lbbvq
+
+In order to track the TaskRun progress run:
+tkn taskrun logs hello-task-with-params-run-lbbvq -f -n jegan
+</pre>
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>tkn task list</b>
+NAME                             DESCRIPTION   AGE
+hello                                          53 minutes ago
+hello-task-with-multiple-steps                 10 minutes ago
+<b>hello-task-with-params                         41 seconds ago</b>
+</pre>
+
+Check the output
+<pre>
+(jegan@tektutor.org)$ <b>tkn taskrun logs --last</b>
+[echo] Hello TekTon Task !
+</pre>
