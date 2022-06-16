@@ -197,3 +197,27 @@ NAME                             DESCRIPTION   AGE
 hello                                          43 minutes ago
 <b>hello-task-with-multiple-steps                 51 seconds ago</b>
 </pre>
+
+Executing the task
+```
+tkn task start hello-task-with-multiple-steps
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>tkn task start hello-task-with-multiple-steps</b>
+TaskRun started: hello-task-with-multiple-steps-run-xz8zw
+
+In order to track the TaskRun progress run:
+tkn taskrun logs hello-task-with-multiple-steps-run-xz8zw -f -n jegan
+</pre>
+
+Checking the output of the taskrun execution
+<pre>
+(jegan@tektutor.org)$ <b>tkn taskrun logs --last</b>
+[step-1] Step 1 => Hello World !
+
+[step-2] Step 2 => Hello World !
+
+[step-3] Step 3 => Hello World !
+</per>
