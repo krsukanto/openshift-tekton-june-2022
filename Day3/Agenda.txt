@@ -1,7 +1,7 @@
 Today's Agenda
 ++++++++++++++
-1. Setting up NFS Server on CentOS 7.x
-2. Persistent Volume and Persistent Volume Claims
+1. Setting up NFS Server on CentOS 7.x - done
+2. Persistent Volume and Persistent Volume Claims - done
 3. Node Affinity
 4. Operators
     - What is an Operator?

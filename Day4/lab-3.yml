@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: hello-task-with-params
+spec:
+  params:
+  - name: message
+    type: string
+    description: this is an optional describe about the parameter
+    default: "Hello TekTon Task !"
+  steps:
+  - name: echo
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - $(params.message)

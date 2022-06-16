@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tekton-pv-jegan
+  labels:
+    name: jegan
+spec:
+  capacity:
+    storage: 5Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: "192.168.1.80"
+    path: "/mnt/nfs_share"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tekton-pvc-jegan
+  labels:
+    name: jegan
+spec:
+  selector:
+    matchLabels:
+      name: jegan
+  resources:
+    requests:
+      storage: 5Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: clone-tektutor-github-repo
+spec:
+  taskRef:
+    name: git-clone
+  params:
+    - name: url
+      value: https://github.com/tektutor/openshift-tekton-june-2022.git
+    - name: revision
+      value: main
+  workspaces:
+  - name: output
+    persistentVolumeClaim:
+      claimName: tekton-pvc-jegan

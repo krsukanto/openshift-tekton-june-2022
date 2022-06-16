@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: hello-task-with-multiple-steps-and-params-
+spec:
+  params:
+  - name: msg1
+    value: "Taskrun value1"
+  - name: msg2
+    value: "Taskrun value2"
+  taskSpec:
+    params:
+    - name: msg1
+      type: string
+    - name: msg2
+      type: string
+    steps:
+    - name: step1
+      image: ubuntu
+      script: | 
+        echo $(params.msg1)
+        echo $(params.msg2)
+    - name: step2
+      image: ubuntu
+      command:  
+        - echo
+      args:
+        - $(params.msg1)
+        - $(params.msg2)
