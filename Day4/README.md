@@ -506,3 +506,86 @@ secret/openshift-login-credentials created
 [c1] kubeadmin+ cat /my/secrets/password.txt
 [c1] NZvDH-pxmUj-IaG7m-PSGqZ
 </pre>
+
+## ⛹️‍♀️ Lab - Task with Persistent Volume
+
+Create a task-with-pv.yml
+<pre>
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tekton-pv-jegan
+  labels:
+    name: jegan
+spec:
+  capacity:
+    storage: 5Mi 
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: "192.168.1.80"
+    path: "/mnt/nfs_share"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tekton-pvc-jegan
+  labels:
+    name: jegan
+spec:
+  selector:
+    matchLabels:
+      name: jegan
+  resources:
+    requests:
+      storage: 5Mi 
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: taskrun-with-pv-
+spec:
+  workspaces:
+  - name: myworkspace
+    persistentVolumeClaim:
+      claimName: tekton-pvc-jegan
+  taskSpec:
+    steps:
+    - name: task-with-pv
+      image: ubuntu
+      script: |
+        echo $(workspaces.myworkspace.path) > $(workspaces.myworkspace.path)/path
+    - name: print-path
+      image: ubuntu
+      script: cat $(workspaces.myworkspace.path)/path
+    workspaces:
+    - name: myworkspace
+      mountPath: /my/myworkspace 
+</pre>
+
+Create the taskrun in the cluster
+```
+oc create -f taskrun-with-pv.yml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create -f task-with-pv.yml</b>
+persistentvolume/tekton-pv-jegan created
+persistentvolumeclaim/tekton-pvc-jegan created
+taskrun.tekton.dev/taskrun-with-pv-w6t99 created
+</pre>
+
+Check the taskrun logs output
+<pre>
+(jegan@tektutor.org)$ <b>tkn taskrun logs --last -f</b>
+[task-with-pv] + echo /my/myworkspace
+
+[print-path] + cat /my/myworkspace/path
+[print-path] /my/myworkspace
+</pre>
