@@ -589,3 +589,51 @@ Check the taskrun logs output
 [print-path] + cat /my/myworkspace/path
 [print-path] /my/myworkspace
 </pre>
+
+
+## ⛹️‍♀️ Lab - Ignore step errors to continue the task steps
+
+task-with-error.yml
+<pre>
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-with-error
+spec:
+  steps:
+  - name: step1-with-error
+    onError: continue
+    image: ubuntu
+    command: 
+      - /bin/bash
+    args:
+      - /bin/false 
+
+  - name: step2
+    image: ubuntu
+    command:
+      - bin/bash
+    args:
+      - echo "Step 2 - though there was en error in step1"
+</pre>
+
+Create the above task
+```
+oc apply -f task-with-error.yml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc apply -f task-with-error.yml 
+task.tekton.dev/task-with-error created
+</pre>
+
+You can execute the taskrun and see the log output
+<pre>
+(jegan@tektutor.org)$ <b>tkn task start task-with-error --showlog</b>
+TaskRun started: task-with-error-run-fwgsh
+Waiting for logs to be available...
+[step1-with-error] /bin/false: /bin/false: cannot execute binary file
+
+[step2] bin/bash: echo "Step 2 - though there was en error in step1": No such file or directory
+</pre>
