@@ -446,3 +446,63 @@ Check the output logs
 [read-tools-path-from-cm] /usr/lib/jdk11+ cat /my/configmap/m2_home.txt
 [read-tools-path-from-cm] /usr/share/maven
 </pre>
+
+## ⛹️‍♀️ Lab - Task with Secrets
+
+Create the taskrun-with-secrets.yml
+<pre>
+apiVersion: v1
+kind: Secret
+metadata:
+  name: openshift-login-credentials
+type: Opaque
+data:
+  username: a3ViZWFkbWlu
+  password: Tlp2REgtcHhtVWotSWFHN20tUFNHcVo=
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: task-with-secrets-
+spec:
+  workspaces:
+  - name: openshift-credentials
+    secret:
+      secretName: openshift-login-credentials
+      items:
+      - key: username
+        path: username.txt
+      - key: password
+        path: password.txt
+  taskSpec:
+    steps:
+    - name: c1
+      image: ubuntu
+      script: |
+        cat $(workspaces.openshift-credentials.path)/username.txt
+        cat $(workspaces.openshift-credentials.path)/password.txt
+    workspaces:
+    - name: openshift-credentials
+      mountPath: /my/secrets
+</pre>
+
+Create the above taskrun
+```
+oc create -f taskrun-with-secrets.yml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create -f task-with-secrets.yml</b>
+secret/openshift-login-credentials created
+</pre>
+
+Check the output log
+<pre>(jegan@tektutor.org)$ oc create -f task-with-secrets.yml 
+secret/openshift-login-credentials created
+
+(jegan@tektutor.org)$ <b>tkn taskrun logs --last -f</b>
+[c1] + cat /my/secrets/username.txt
+[c1] kubeadmin+ cat /my/secrets/password.txt
+[c1] NZvDH-pxmUj-IaG7m-PSGqZ
+</pre>
