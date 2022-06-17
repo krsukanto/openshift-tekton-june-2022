@@ -1,0 +1,60 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: tektutor-trigger-template
+  annotations:
+    triggers.tekton.dev/old-escape-quotes: 'true'
+spec:
+  params:
+    - name: app-name
+      description: The application name
+      default: tektutor 
+    - name: run-it
+      description: Should I run the new container image?
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: first-pipeline-run-
+        labels:
+          app-name: tektutor 
+      spec:
+        serviceAccountName: pipeline
+        pipelineRef: 
+          name: first-pipeline 
+        params:
+        - name: app-name
+          value: $(tt.params.app-name)
+        - name: run-it
+          value: $(tt.params.run-it)
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: tektutor-trigger-binding
+spec:
+  params:
+    - name: app-name
+      value: "$(body.name)"
+    - name: run-it
+      value: "$(body.run-it)"
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: Trigger
+metadata:
+  name: tektutor-trigger
+spec:
+  interceptors: []
+  bindings:
+  - ref: tektutor-trigger-binding
+  template:
+    ref: tektutor-trigger-template
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: tektutor-trigger-listener
+spec:
+  serviceAccountName: pipeline
+  triggers:
+  - triggerRef: tektutor-trigger
