@@ -290,3 +290,5 @@ Expected output
 (jegan@tektutor.org)$ <b>oc create -f pipeline-run.yml</b>
 pipelinerun.tekton.dev/build-and-push-prw2m8r created
 </pre>
+
+
