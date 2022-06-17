@@ -23,6 +23,7 @@ cd Day5
 oc new-project jegan
 oc apply -f first-pipeline.yml
 ```
+Make sure, you have already created a project.  If you have existing project, you can ensure you have switched to your project.
 
 Expected output
 <pre>
