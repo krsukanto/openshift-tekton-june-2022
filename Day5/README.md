@@ -5,6 +5,10 @@
 - the tasks in a pipeline are executed some in sequence and some in parallel as per our requirement
 - output produced by one Task can be passed on to other Task using workspaces with Persisten Volume
 
+## You may be interested in this blog
+<pre>
+https://medium.com/tektutor/openshift-ci-cd-with-tekton-faa88ba45656
+</pre>
 
 ## ⛹️‍♂️ Lab - Creating your first pipeline ( as non-admin user )
 
