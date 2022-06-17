@@ -1,0 +1,15 @@
+(jegan@tektutor.org)$ tkn task start source-to-image 
+? Choose the git resource to use for git-source: create new "git" resource
+? Enter a name for a pipeline resource : git-source
+? Enter a value for url :  https://github.com/tektutor/spring-ms.git
+? Enter a value for revision :  master
+New git resource "git-source" has been created
+? Value for param `pathToContext` of type `string`? (Default is `.`) .
+? Value for param `pathToDockerfile` of type `string`? (Default is `Dockerfile`) Dockerfile
+? Value for param `imageUrl` of type `string`? openshiftindia/spring-ms
+? Value for param `imageTag` of type `string`? (Default is `latest`) 1.0
+TaskRun started: source-to-image-run-p7x48
+
+In order to track the TaskRun progress run:
+tkn taskrun logs source-to-image-run-p7x48 -f -n jegan
+

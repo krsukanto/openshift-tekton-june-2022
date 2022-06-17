@@ -13,7 +13,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: "192.168.1.80"
-    path: "/mnt/nfs_share"
+    path: "/mnt/maven"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -41,10 +41,11 @@ spec:
     name: git-clone
   params:
     - name: url
-      value: https://github.com/tektutor/openshift-tekton-june-2022.git
+      value: https://github.com/tektutor/spring-ms.git
     - name: revision
-      value: main
+      value: master
   workspaces:
   - name: output
     persistentVolumeClaim:
       claimName: tekton-pvc-jegan
+    subPath: source

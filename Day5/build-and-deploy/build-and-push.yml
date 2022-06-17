@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: buildah-build-my-repo
+spec:
+  serviceAccountName: dockerhub-sa
+  taskRef:
+    name: buildah
+  params:
+  - name: IMAGE
+    value: gcr.io/my-repo/my-image
+  workspaces:
+  - name: source
+    persistentVolumeClaim:
+      claimName: tekton-pvc-jegan 
+    subPath: source
+  podTemplate:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1001

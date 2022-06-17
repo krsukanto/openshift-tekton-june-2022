@@ -1,0 +1,27 @@
+apiVersion: polling.tekton.dev/v1alpha1
+kind: Repository
+metadata:
+  name: tektutor-git-repo
+spec:
+  url: https://github.com/tektutor/tekton-may-2022.git
+  ref: main
+  frequency: 2m
+  type: github
+  pipelineRef:
+    name: java-cicd-pipeline
+    serviceAccountName: default
+    namespace: jegan
+    params:
+    - name: sha
+      expression: commit.sha
+    - name: repoURL
+      expression: repoURL
+    workspaces:
+    - name: source-code
+      persistentVolumeClaim:
+        claimName: tektutor-tekton-pvc
+      subPath: source
+    - name: maven-repo 
+      persistentVolumeClaim:
+        claimName: tektutor-tekton-pvc
+      subPath: m2 
