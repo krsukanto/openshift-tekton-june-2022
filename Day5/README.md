@@ -5,6 +5,10 @@
 - the tasks in a pipeline are executed some in sequence and some in parallel as per our requirement
 - output produced by one Task can be passed on to other Task using workspaces with Persisten Volume
 
+## You may be interested in this blog
+<pre>
+https://medium.com/tektutor/openshift-ci-cd-with-tekton-faa88ba45656
+</pre>
 
 ## ⛹️‍♂️ Lab - Creating your first pipeline ( as non-admin user )
 
@@ -120,3 +124,34 @@ Waiting for logs to be available...
 
 [task5 : step2] Task5 - step2
 </pre>
+
+## ⛹️‍♂️ Lab - Create a CI/CD pipeline for a spring-boot java application using Tekton pipeline
+
+You need to install the below tasks from Tekton Hub(Tekton Catalog
+```
+tkn hub install task maven
+tkn hub install task git-clone
+```
+Without these tasks, our pipeline execution will fail.
+
+Once the git-clone and maven tasks are installed, you can create the pipeline as shown below
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5
+oc project
+oc delete -f java-cicd-pipeline.yml
+oc create -f java-cicd-pipeline.yml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create -f java-cicd-pipeline.yml</b>
+persistentvolume/tektutor-tekton-pv-jegan created
+persistentvolumeclaim/tektutor-tekton-pvc-jegan created
+pipeline.tekton.dev/java-tekton-cicd-pipeline created
+pipelinerun.tekton.dev/java-tekton-cicd-pipline-run-wzvjx created
+</pre>
+
+You can check the pipelinerun logs in the OpenShift webconsole.
