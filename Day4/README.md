@@ -637,3 +637,31 @@ Waiting for logs to be available...
 
 [step2] bin/bash: echo "Step 2 - though there was en error in step1": No such file or directory
 </pre>
+
+
+## Installing tasks from Tekton Hub
+```
+tkn hub install task maven
+tkn hub install task git-clone
+```
+
+## Cloning GitHub repo
+You need to update the pv,pvc name by replacing 'jegan' with your name.  Also ensure the IP Address of your NFS Server is upated along with the /mnt/user0x/tekton.
+
+```
+cd ~
+git clone https://github.com/tektutor/openshift-tekton-june-2022.git
+cd openshift-tekton-june-2022
+
+cd Day4
+oc apply -f git-clone-tr.yml
+```
+
+## Build and Package the hello maven project
+```
+cd ~/openshift-tekton-june-2022
+git pull
+
+cd Day4
+oc apply -f maven-build-tr.yml
+```

@@ -6,7 +6,7 @@ metadata:
     name: jegan
 spec:
   capacity:
-    storage: 5Mi
+    storage: 500Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
@@ -27,7 +27,7 @@ spec:
       name: jegan
   resources:
     requests:
-      storage: 5Mi
+      storage: 500Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
