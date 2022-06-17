@@ -6,7 +6,7 @@
 - output produced by one Task can be passed on to other Task using workspaces with Persisten Volume
 
 
-## Creating your first pipeline ( as non-admin user )
+## ⛹️‍♂️ Lab - Creating your first pipeline ( as non-admin user )
 
 In case you haven't clone this repository, you may do now
 ```
@@ -64,4 +64,59 @@ You may check the pipelinerun output logs as shown below
 [task2 : step2] Task2 - step2
 
 [task2 : step3] Task2 - step3
+</pre>
+
+
+## ⛹️‍♂️ Lab - Creating your second pipeline
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5
+oc project
+oc apply -f second-pipeline.yml
+```
+
+Expected ouptut
+<pre>
+(jegan@tektutor.org)$ oc apply -f second-pipeline.yml 
+task.tekton.dev/task1 created
+task.tekton.dev/task2 created
+task.tekton.dev/task3 created
+task.tekton.dev/task4 created
+task.tekton.dev/task5 created
+pipeline.tekton.dev/second-pipeline created
+</pre>
+
+You may start the pipeline execution as shown below
+```
+tkn pipeline start second-pipeline --showlog
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ tkn pipeline start second-pipeline --showlog
+PipelineRun started: second-pipeline-run-pf4xm
+Waiting for logs to be available...
+[task1 : step1] Task1 - step1
+
+[task1 : step2] Task1 - step2
+
+[task3 : step1] Task3 - step1
+
+[task3 : step2] Task3 - step2
+
+[task2 : step1] Task2 - step1
+
+[task2 : step2] Task2 - step2
+
+[task2 : step3] Task2 - step3
+
+[task4 : step1] Task4 - step1
+
+[task4 : step2] Task4 - step2
+
+[task5 : step1] Task5 - step1
+
+[task5 : step2] Task5 - step2
 </pre>
