@@ -24,6 +24,9 @@ metadata:
   labels:
     name: jegan
 spec:
+  selector:
+    matchLabel:
+      name: jegan
   accessModes:
   - ReadWriteMany
   resources:
