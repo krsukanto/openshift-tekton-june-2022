@@ -40,6 +40,7 @@ metadata:
 spec:
   workspaces:
   - name: source-code
+  - name: maven-repo
   tasks:
   - name: clone-git-repo
     params:
@@ -69,13 +70,45 @@ spec:
     - name: source
       workspace: source-code
     - name: maven-settings
+      workspace: maven-repo 
+
+  - name: unit-test 
+    params:
+      - name: GOALS
+        value: 
+        - -Dmaven.repo.local=$(workspaces.maven-settings.path)
+        - test 
+    runAfter:
+    - compile
+    taskRef:
+      name: maven
+    workspaces:
+    - name: source
       workspace: source-code
+    - name: maven-settings
+      workspace: maven-repo
+  - name: package 
+    params:
+      - name: GOALS
+        value: 
+        - -Dmaven.repo.local=$(workspaces.maven-settings.path)
+        - package 
+    runAfter:
+    - unit-test 
+    taskRef:
+      name: maven
+    workspaces:
+    - name: source
+      workspace: source-code
+    - name: maven-settings
+      workspace: maven-repo 
+---
 ---
 # PipelineRun - provides all required parameters to the Pipeline
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: java-tekton-cicd-pipline-run-
+  name: java-tekton-cicd-pipline-run
 spec:
   pipelineRef:
     name: java-tekton-cicd-pipeline
@@ -84,3 +117,8 @@ spec:
   - name: source-code
     persistentVolumeClaim:
       claimName: tektutor-tekton-pvc-jegan 
+    subPath: source 
+  - name: maven-repo
+    persistentVolumeClaim:
+      claimName: tektutor-tekton-pvc-jegan 
+    subPath: m2
