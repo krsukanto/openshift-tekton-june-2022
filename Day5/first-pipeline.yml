@@ -40,7 +40,7 @@ spec:
     command:
     - echo
     args:
-    - Task3 - step3
+    - Task2 - step3
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline

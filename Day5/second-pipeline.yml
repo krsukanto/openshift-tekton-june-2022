@@ -1,0 +1,138 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task1
+spec:
+  steps:
+  - name: step1
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task1 - step1
+  - name: step2
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task1 - step2
+--- 
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task2
+spec:
+  steps:
+  - name: step1
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task2 - step1
+  - name: step2
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task2 - step2
+  - name: step3
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task2 - step3
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task3
+spec:
+  steps:
+  - name: step1
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task3 - step1
+  - name: step2
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task3 - step2
+--- 
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task4
+spec:
+  steps:
+  - name: step1
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task4 - step1
+  - name: step2
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task4 - step2
+--- 
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task5
+spec:
+  steps:
+  - name: step1
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task5 - step1
+  - name: step2
+    image: ubuntu
+    command:
+    - echo
+    args:
+    - Task5 - step2
+--- 
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: second-pipeline
+spec:
+  tasks:
+  - name: task1
+    taskRef:
+      kind: Task
+      name: task1
+
+  - name: task2
+    runAfter:
+    - task1
+    taskRef:
+      kind: Task
+      name: task2
+
+  - name: task3
+    runAfter:
+    - task1
+    taskRef:
+      kind: Task
+      name: task3
+  - name: task4
+    runAfter:
+    - task2
+    - task3
+    taskRef:
+      kind: Task
+      name: task4
+  - name: task5
+    runAfter:
+    - task4
+    taskRef:
+      kind: Task
+      name: task5
