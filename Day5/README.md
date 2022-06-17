@@ -292,8 +292,8 @@ pipelinerun.tekton.dev/build-and-push-prw2m8r created
 </pre>
 
 Some screenshots of the output
-![pipelins-listing](pipelines-list.png)
-![pipelins-listing](pipeline-graph.png)
-![pipelins-listing](specific-pipeline.png)
-![pipelins-listing](pipeline-run-logs.png)
-![pipelins-listing](image-pushed-into-dockerhub.png)
+![pipeline listing](pipelines-list.png)
+![pipeline graph](pipeline-graph.png)
+![specific pipeline](specific-pipeline.png)
+![pipeline run logs](pipeline-run-logs.png)
+![image pushed into dockerhub](image-pushed-into-dockerhub.png)
