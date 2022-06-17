@@ -6,7 +6,7 @@
 - output produced by one Task can be passed on to other Task using workspaces with Persisten Volume
 
 
-## Creating your first pipeline ( as non-admin user )
+## ⛹️‍♂️ Lab - Creating your first pipeline ( as non-admin user )
 
 In case you haven't clone this repository, you may do now
 ```
