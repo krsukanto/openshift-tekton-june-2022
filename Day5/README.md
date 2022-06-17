@@ -155,3 +155,138 @@ pipelinerun.tekton.dev/java-tekton-cicd-pipline-run-wzvjx created
 </pre>
 
 You can check the pipelinerun logs in the OpenShift webconsole.
+
+## ⛹️‍♂️ Lab - Build and push images from Dockerfile
+#### Create Custom Security Context Constraints to give buildah the permission to perform build and push as root user
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5/build-and-deploy/
+oc project
+
+oc create -f my-scc.yaml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create -f my-scc.yml</b>
+securitycontextconstraints.security.openshift.io/my-scc created
+</pre>
+
+#### Create a Custom Security Account
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5/build-and-deploy/
+oc project
+
+oc create serviceaccount fsgroup-runasany
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create serviceaccount fsgroup-runasany</b>
+serviceaccount/fsgroup-runasany created
+</pre>
+
+
+#### Associate my-scc with the fsgroup-runasany service account
+```
+oc adm policy add-scc-to-user my-scc -z fsgroup-runasany
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc adm policy add-scc-to-user my-scc -z fsgroup-runasany</b>
+clusterrole.rbac.authorization.k8s.io/system:openshift:scc:my-scc added: "fsgroup-runasany"
+</pre>
+
+#### Associate the privileged SCC with fsgroup-runasany service account
+```
+oc adm policy add-scc-to-user privileged -z fsgroup-runasany
+```
+Expected outupt
+<pre>
+(jegan@tektutor.org)$ <b>oc adm policy add-scc-to-user privileged -z fsgroup-runasany</b>
+clusterrole.rbac.authorization.k8s.io/system:openshift:scc:privileged added: "fsgroup-runasany"
+</pre>
+
+#### Create secret with Docker Hub Login credentials
+```
+export USERNAME=<your-dockerhub-username>
+export PASSWORD=<your-dockerhub-password>
+oc create secret generic dockerhub-credentials --from-literal username=$USERNAME --from-literal password=$PASSWORD
+```
+
+List and check the secrets
+<pre>
+(jegan@tektutor.org)$ oc get secrets
+NAME                                      TYPE                                  DATA   AGE
+builder-dockercfg-fnt9b                   kubernetes.io/dockercfg               1      19h
+builder-token-95k2r                       kubernetes.io/service-account-token   4      19h
+builder-token-bgffk                       kubernetes.io/service-account-token   4      19h
+deployer-token-klq7h                      kubernetes.io/service-account-token   4      19h
+<b>dockerhub-credentials                     Opaque                                2      11h</b>
+fsgroup-runasany-dockercfg-d8rhq          kubernetes.io/dockercfg               1      30m
+fsgroup-runasany-token-8jcgk              kubernetes.io/service-account-token   4      30m
+fsgroup-runasany-token-pxn2w              kubernetes.io/service-account-token   4      30m
+pipeline-dockercfg-ppp8j                  kubernetes.io/dockercfg               1      19h
+pipeline-token-jjtf6                      kubernetes.io/service-account-token   4      19h
+pipeline-token-xhxcv                      kubernetes.io/service-account-token   4      19h
+tekton-polling-operator-dockercfg-s7sp2   kubernetes.io/dockercfg               1      13h
+tekton-polling-operator-token-85kl5       kubernetes.io/service-account-token   4      13h
+tekton-polling-operator-token-nwll2       kubernetes.io/service-account-token   4      13h
+</pre>
+
+#### Create the build-and-push Task
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5/build-and-deploy/
+oc project
+
+oc apply -f build-and-push.yml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc apply -f build-and-push.yml 
+task.tekton.dev/buildah configured
+</pre>
+
+#### Create the Pipeline
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5/build-and-deploy/
+oc project
+
+oc apply -f pipeline.yml 
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc apply -f pipeline.yml</b>
+pipeline.tekton.dev/build-and-push-pipeline created
+</pre>
+
+### Create the PipelineRun
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5/build-and-deploy/
+oc project
+
+oc create -f pipeline-run.yml 
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ oc create -f pipeline-run.yml 
+pipelinerun.tekton.dev/build-and-push-prw2m8r created
+</pre>
