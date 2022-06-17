@@ -222,7 +222,7 @@ oc create secret generic dockerhub-credentials --from-literal username=$USERNAME
 
 List and check the secrets
 <pre>
-(jegan@tektutor.org)$ oc get secrets
+(jegan@tektutor.org)$ <b>oc get secrets</b>
 NAME                                      TYPE                                  DATA   AGE
 builder-dockercfg-fnt9b                   kubernetes.io/dockercfg               1      19h
 builder-token-95k2r                       kubernetes.io/service-account-token   4      19h
@@ -253,7 +253,7 @@ oc apply -f build-and-push.yml
 
 Expected output
 <pre>
-(jegan@tektutor.org)$ oc apply -f build-and-push.yml 
+(jegan@tektutor.org)$ <b>oc apply -f build-and-push.yml</b>
 task.tekton.dev/buildah configured
 </pre>
 
@@ -287,6 +287,6 @@ oc create -f pipeline-run.yml
 
 Expected output
 <pre>
-(jegan@tektutor.org)$ oc create -f pipeline-run.yml 
+(jegan@tektutor.org)$ <b>oc create -f pipeline-run.yml</b>
 pipelinerun.tekton.dev/build-and-push-prw2m8r created
 </pre>
