@@ -1,20 +1,54 @@
 apiVersion: tekton.dev/v1beta1
-kind: TaskRun
+kind: Task
 metadata:
-  name: buildah-build-my-repo
+  name: buildah
 spec:
-  serviceAccountName: dockerhub-sa
-  taskRef:
-    name: buildah
   params:
   - name: IMAGE
-    value: gcr.io/my-repo/my-image
+    description: name of the image buildah will create
+  - name: STORAGE_DRIVER
+    default: vfs 
+  - name: DOCKERFILE
+    description: Path to the Dockerfile to build
+    default: ./Dockerfile
+  - name: IMAGE_PUSH_SECRET_NAME
+    description: secret name that has docker hub registry credentials
   workspaces:
   - name: source
-    persistentVolumeClaim:
-      claimName: tekton-pvc-jegan 
-    subPath: source
-  podTemplate:
+  steps:
+  - name: build
+    image: quay.io/buildah/stable:v1.17.0
+    workingDir: $(workspaces.source.path)
+    script: |
+      buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
+        --no-cache -f $(params.DOCKERFILE) -t $(params.IMAGE) .
+    volumeMounts:
+    - name: varlibcontainers
+      mountPath: /var/lib/containers
     securityContext:
-      runAsNonRoot: true
-      runAsUser: 1001
+      privileged: true
+  - name: push
+    image: quay.io/buildah/stable:v1.17.0
+    workingDir: $(workspaces.source.path)
+    script: |
+      buildah --storage-driver=$(params.STORAGE_DRIVER) push \
+        --creds ${USERNAME}:${PASSWORD} $(params.IMAGE)
+    volumeMounts:
+    - name: varlibcontainers
+      mountPath: /var/lib/containers
+    securityContext:
+      privileged: true
+    env:
+    - name: USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: $(params.IMAGE_PUSH_SECRET_NAME)
+          key: username
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: $(params.IMAGE_PUSH_SECRET_NAME)
+          key: password
+  volumes:
+  - name: varlibcontainers
+    emptyDir: {}

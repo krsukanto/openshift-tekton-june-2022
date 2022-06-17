@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-and-push-pr
+spec:
+  serviceAccountName: 'fsgroup-runasany'
+  pipelineRef:
+    name: build-and-push-pipeline
+  workspaces:
+  - name: myworkspace
+    persistentVolumeClaim:
+      claimName: tektutor-tekton-pvc 
+    subPath: source 

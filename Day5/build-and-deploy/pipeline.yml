@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-push-pipeline
+spec:
+  workspaces:
+  - name: myworkspace
+  tasks:
+  - name: clone-github-repo 
+    taskRef:
+      name: git-clone
+    workspaces:
+    - name: output
+      workspace: myworkspace
+    params:
+    - name: url
+      value: https://github.com/tektutor/spring-ms.git
+    - name: deleteExisting
+      value: "true"
+  - name: build
+    taskRef:
+      name: buildah
+    runAfter:
+      - clone-github-repo
+    params:
+    - name: IMAGE
+      value: docker.io/openshiftindia/spring-ms
+    - name: IMAGE_PUSH_SECRET_NAME
+      value: dockerhub-credentials
+    workspaces:
+    - name: source
+      workspace: myworkspace

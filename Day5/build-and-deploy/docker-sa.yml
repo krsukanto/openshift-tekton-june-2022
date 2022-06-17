@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: dockerhub-sa 
-secrets:
-  - name: dockerhub-credentials 
