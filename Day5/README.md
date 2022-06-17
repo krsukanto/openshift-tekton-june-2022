@@ -122,12 +122,22 @@ Waiting for logs to be available...
 </pre>
 
 ## ⛹️‍♂️ Lab - Create a CI/CD pipeline for a spring-boot java application using Tekton pipeline
+
+You need to install the below tasks from Tekton Hub(Tekton Catalog
+```
+tkn hub install task maven
+tkn hub install task git-clone
+```
+Without these tasks, our pipeline execution will fail.
+
+Once the git-clone and maven tasks are installed, you can create the pipeline as shown below
 ```
 cd ~
 cd openshift-tekton-june-2022
 git pull
 cd Day5
 oc project
+oc delete -f java-cicd-pipeline.yml
 oc create -f java-cicd-pipeline.yml
 ```
 
