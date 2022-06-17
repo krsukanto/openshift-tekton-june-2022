@@ -121,7 +121,7 @@ Waiting for logs to be available...
 [task5 : step2] Task5 - step2
 </pre>
 
-## Create a CI/CD pipeline for a spring-boot java application using Tekton pipeline
+## ⛹️‍♂️ Lab - Create a CI/CD pipeline for a spring-boot java application using Tekton pipeline
 ```
 cd ~
 cd openshift-tekton-june-2022
