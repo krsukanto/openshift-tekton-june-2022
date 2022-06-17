@@ -20,7 +20,7 @@ cd ~
 cd openshift-tekton-june-2022
 git pull
 cd Day5
-
+oc new-project jegan
 oc apply -f first-pipeline.yml
 ```
 
