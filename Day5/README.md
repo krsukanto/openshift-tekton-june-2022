@@ -120,3 +120,24 @@ Waiting for logs to be available...
 
 [task5 : step2] Task5 - step2
 </pre>
+
+## Create your first practical usecase of a Tekton pipeline
+```
+cd ~
+cd openshift-tekton-june-2022
+git pull
+cd Day5
+oc project
+oc apply -f java-cicd-pipeline.yml
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>oc create -f java-cicd-pipeline.yml</b>
+persistentvolume/tektutor-tekton-pv-jegan created
+persistentvolumeclaim/tektutor-tekton-pvc-jegan created
+pipeline.tekton.dev/java-tekton-cicd-pipeline created
+pipelinerun.tekton.dev/java-tekton-cicd-pipline-run-wzvjx created
+</pre>
+
+You can check the pipelinerun logs in the OpenShift webconsole.
