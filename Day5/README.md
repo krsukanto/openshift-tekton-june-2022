@@ -128,7 +128,7 @@ cd openshift-tekton-june-2022
 git pull
 cd Day5
 oc project
-oc apply -f java-cicd-pipeline.yml
+oc create -f java-cicd-pipeline.yml
 ```
 
 Expected output
