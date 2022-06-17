@@ -31,3 +31,36 @@ task.tekton.dev/task1 created
 task.tekton.dev/task2 created
 pipeline.tekton.dev/first-pipeline created
 </pre>
+
+Listing the pipeline
+```
+tkn pipeline list
+```
+
+Executing the pipeline
+```
+tkn pipeline start first-pipeline
+```
+
+Expected output
+<pre>
+(jegan@tektutor.org)$ <b>tkn pipeline start first-pipeline</b>
+PipelineRun started: first-pipeline-run-4mzhs
+
+In order to track the PipelineRun progress run:
+tkn pipelinerun logs first-pipeline-run-4mzhs -f -n jegan
+</pre>
+
+You may check the pipelinerun output logs as shown below
+<pre>
+(jegan@tektutor.org)$ <b>tkn pr logs -f first-pipeline-run-4mzhs</b>
+[task1 : step1] Task1 - step1
+
+[task1 : step2] Task1 - step2
+
+[task2 : step1] Task2 - step1
+
+[task2 : step2] Task2 - step2
+
+[task2 : step3] Task2 - step3
+</pre>
