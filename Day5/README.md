@@ -291,4 +291,9 @@ Expected output
 pipelinerun.tekton.dev/build-and-push-prw2m8r created
 </pre>
 
-
+Some screenshots of the output
+![pipelins-listing](pipelines-list.png)
+![pipelins-listing](pipeline-graph.png)
+![pipelins-listing](specific-pipeline.png)
+![pipelins-listing](pipeline-run-logs.png)
+![pipelins-listing](image-pushed-into-dockerhub.png)
